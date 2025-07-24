@@ -1,0 +1,327 @@
+@model anaproject.Models.Cars.Car
+@{
+    ViewData["Title"] = Model?.CarAdi + " VAN'ı Keşfet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="discover-hero position-relative overflow-hidden py-5">
+    <div class="container position-relative">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+                <div class="hero-content-box p-4 rounded-4 shadow-lg bg-opacity-75" style="background:rgba(24,24,32,0.82);display:inline-block;max-width:480px;">
+                    <h1 class="display-3 fw-bold mb-3 animate-fadein">@Model?.CarAdi VAN</h1>
+                    <p class="lead mb-4 animate-slideup">@(!string.IsNullOrEmpty(Model?.CarDescription) ? Model.CarDescription : "Üst düzey lüks, sportif çizgiler ve elektrikli performans: SOFT VAN ile tanışın.")</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="@(string.IsNullOrEmpty(Model?.CarImage) ? "/img/softVAN.jpeg" : Model.CarImage)" alt="@Model?.CarAdi VAN" class="img-fluid rounded-4 shadow-lg hero-img animate-zoom" style="max-height: 420px; background:#181820; padding:1rem;">
+            </div>
+        </div>
+    </div>
+    <div class="wave-svg position-absolute bottom-0 start-0 w-100" style="line-height:0;z-index:2;">
+        <svg viewBox="0 0 1440 120" width="100%" height="80" preserveAspectRatio="none" style="display:block;position:relative;z-index:1;">
+            <path class="wave1" d="M0,80 C360,160 1080,0 1440,80 L1440,120 L0,120 Z" fill="#00e6d0" fill-opacity="0.13"></path>
+            <path class="wave2" d="M0,100 C400,0 1040,200 1440,60 L1440,120 L0,120 Z" fill="#00e6d0" fill-opacity="0.22"></path>
+        </svg>
+    </div>
+</section>
+
+<section class="container py-5 animate-fadein">
+    <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-3 text-center">
+            <div class="stat-value display-5 fw-bold">@Model?.CarMenzil</div>
+            <div class="stat-label">Menzil (km)</div>
+        </div>
+        <div class="col-6 col-md-3 text-center">
+            <div class="stat-value display-5 fw-bold">@Model?.CarKW</div>
+            <div class="stat-label">Maks. Güç (kW)</div>
+        </div>
+        <div class="col-6 col-md-3 text-center">
+            <div class="stat-value display-5 fw-bold">@Model?.CarBeygir</div>
+            <div class="stat-label">Güç (HP)</div>
+        </div>
+        <div class="col-6 col-md-3 text-center">
+            <div class="stat-value display-5 fw-bold">@Model?.CarSifirYuz</div>
+            <div class="stat-label">0-100 km/s (sn)</div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5 animate-slideup">
+    <div class="row justify-content-center g-4">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold mb-3">Öne Çıkan Özellikler</h2>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-card p-4 rounded-4 shadow-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-lightning-charge-fill text-primary display-4 mb-3"></i>
+                <div class="fs-5 fw-semibold mb-1">Elektrikli Performans</div>
+                <div class="text-secondary small">Yüksek verimlilik ve anında tork</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-card p-4 rounded-4 shadow-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-arrows-angle-expand text-primary display-4 mb-3"></i>
+                <div class="fs-5 fw-semibold mb-1">Geniş İç Hacim</div>
+                <div class="text-secondary small">Konforlu ve ferah yaşam alanı</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-card p-4 rounded-4 shadow-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-cpu-fill text-primary display-4 mb-3"></i>
+                <div class="fs-5 fw-semibold mb-1">Akıllı Sürüş</div>
+                <div class="text-secondary small">Gelişmiş sürüş asistanları</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-card p-4 rounded-4 shadow-lg h-100 d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-palette-fill text-primary display-4 mb-3"></i>
+                <div class="fs-5 fw-semibold mb-1">Kişiselleştirilebilir Tasarım</div>
+                <div class="text-secondary small">Farklı renk ve donanım seçenekleri</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- İç Dizayn Galerisi -->
+<section class="container py-5 animate-fadein">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold mb-3">İç Dizayn</h2>
+            <p class="text-secondary">SOFT VAN'ın iç mekanındaki modern detayları keşfedin.</p>
+        </div>
+        <div class="col-12 d-flex flex-wrap justify-content-center gap-4" id="dynamic-gallery">
+            <!-- Dinamik resimler buraya gelecek -->
+        </div>
+    </div>
+</section>
+
+
+
+<section class="container py-5 animate-fadein">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold mb-4">Teknik Detaylar</h2>
+        </div>
+        <div class="col-md-8">
+            <div class="tech-details-table rounded-4 shadow-lg overflow-hidden">
+                <table class="table table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <th scope="row"><i class="bi bi-car-front-fill text-primary me-2"></i>Model</th>
+                            <td>@Model?.CarModel</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-calendar2-date-fill text-primary me-2"></i>Yıl</th>
+                            <td>@Model?.CarYil</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-speedometer2 text-primary me-2"></i>Beygir</th>
+                            <td>@Model?.CarBeygir</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-battery-charging text-primary me-2"></i>Menzil</th>
+                            <td>@Model?.CarMenzil km</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-lightning text-primary me-2"></i>0-100 km/s</th>
+                            <td>@Model?.CarSifirYuz sn</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-currency-dollar text-primary me-2"></i>Fiyat</th>
+                            <td>@(Model?.CarFiyat.ToString("N0")) ₺</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (!string.IsNullOrEmpty(Model?.EngineSoundUrl)) {
+    <div class="mt-4 text-center modern-audio-player">
+        <label class="fw-bold mb-2" style="font-size:1.1rem; color:#00e6d0; letter-spacing:1px;">Motor Sesi Dinle</label>
+        <audio controls style="width: 100%; max-width: 400px; border-radius: 1.5rem; box-shadow: 0 4px 24px rgba(0,230,208,0.13); background: #23232b; padding: 0.5rem;">
+            <source src="@Model.EngineSoundUrl" type="audio/mpeg" />
+            Tarayıcınız ses etiketini desteklemiyor.
+        </audio>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function animateOnScroll() {
+            document.querySelectorAll('.animate-fadein, .animate-slideup, .animate-zoom').forEach(function(el) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add('show');
+                }
+            });
+        }
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('DOMContentLoaded', animateOnScroll);
+
+        // Dinamik galeri için API'den resim çekme
+        document.addEventListener("DOMContentLoaded", function() {
+            var carId = @(Model?.ID ?? 0);
+            fetch('https://localhost:7232/api/cars/' + carId + '/images')
+                .then(response => {
+                    if (!response.ok) {
+                        return [];
+                    }
+                    return response.json();
+                })
+                .then(images => {
+                    const gallery = document.getElementById('dynamic-gallery');
+                    if (gallery && images.length > 0) {
+                        gallery.innerHTML = '';
+                        images.forEach(url => {
+                            const div = document.createElement('div');
+                            div.className = 'interior-img-box rounded-4 shadow-lg overflow-hidden';
+                            div.innerHTML = `<img src="${url}" class="img-fluid interior-img" alt="SOFT VAN İç Dizayn" style="width:300px; height:300px; object-fit:cover; max-width:350px;">`;
+                            gallery.appendChild(div);
+                        });
+                    }
+                });
+        });
+    </script>
+    <style>
+        .discover-hero {
+            background: linear-gradient(120deg, #181820 60%, #101014 100%);
+            min-height: 60vh;
+            color: #f3f3f3;
+            padding-bottom: 0;
+        }
+        .discover-hero h1, .discover-hero p {
+            color: #f3f3f3;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+        }
+        .hero-content-box {
+            background: rgba(24,24,32,0.82);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        }
+        .stat-label, .table th, .table td, .fw-bold, .lead, .list-unstyled {
+            color: #f3f3f3 !important;
+        }
+        .table-striped > tbody > tr:nth-of-type(odd) > * {
+            background-color: #23232b !important;
+        }
+        .table-hover > tbody > tr:hover > * {
+            background-color: #181820 !important;
+        }
+        .gallery-img {
+            background: #181820;
+        }
+        .wave-svg { z-index: 1; pointer-events: none; }
+        .feature-card {
+            background: linear-gradient(120deg, #181820 60%, #23232b 100%);
+            color: #f3f3f3;
+            border: 1px solid #23232b;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 12px 32px rgba(0,230,208,0.10);
+            border-color: #00e6d0;
+        }
+        .tech-details-table {
+            background: linear-gradient(120deg, #181820 60%, #23232b 100%);
+            box-shadow: 0 8px 32px rgba(0,230,208,0.18);
+            border: 1px solid #23232b;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            margin-top: 1.5rem;
+        }
+        .tech-details-table th, .tech-details-table td {
+            color: #f3f3f3 !important;
+            font-size: 1.1rem;
+            padding: 1.2rem 1.7rem;
+            vertical-align: middle;
+        }
+        .tech-details-table th {
+            font-weight: 700;
+            background: linear-gradient(90deg, #00e6d0 0%, #23232b 100%);
+            border-right: 2px solid #101014;
+            color: #181820 !important;
+            letter-spacing: 1px;
+        }
+        .tech-details-table tr:not(:last-child) td, .tech-details-table tr:not(:last-child) th {
+            border-bottom: 1px solid #23232b;
+        }
+        .tech-details-table tr {
+            transition: background 0.2s;
+        }
+        .tech-details-table tr:hover td {
+            background: rgba(0,230,208,0.08) !important;
+        }
+        .interior-img-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #181820;
+            margin-bottom: 1rem;
+            transition: transform .25s, box-shadow .25s;
+        }
+        .interior-img-box:hover {
+            transform: scale(1.04) translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,230,208,0.13);
+        }
+        .interior-img {
+            width: 300px;
+            height:300px%;
+            object-fit: cover;
+            display: block;
+            margin: auto;
+        }
+        .modern-audio-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(120deg, #181820 60%, #23232b 100%);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,230,208,0.13);
+            padding: 1.5rem 1rem 1rem 1rem;
+            margin: 2rem auto 1rem auto;
+            max-width: 440px;
+            transition: box-shadow .2s, transform .2s;
+        }
+        .modern-audio-player:hover {
+            box-shadow: 0 16px 48px rgba(0,230,208,0.18);
+            transform: scale(1.03);
+        }
+        .modern-audio-player label {
+            margin-bottom: 0.5rem;
+            color: #00e6d0;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .modern-audio-player audio {
+            outline: none;
+            border-radius: 1.5rem;
+            background: #23232b;
+        }
+        .highlight-box {
+            box-shadow: 0 8px 32px rgba(0,230,208,0.18), 0 1.5px 8px rgba(0,0,0,0.08);
+            border: 1.5px solid #00e6d0;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .highlight-box:hover {
+            box-shadow: 0 16px 48px rgba(0,230,208,0.28), 0 3px 16px rgba(0,0,0,0.12);
+            transform: translateY(-4px) scale(1.02);
+        }
+        .audi-btn, .audi-btn-outline {
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .audi-btn:hover, .audi-btn-outline:hover {
+            box-shadow: 0 4px 24px rgba(0,230,208,0.18);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .feature-card:hover {
+            box-shadow: 0 8px 32px rgba(0,230,208,0.18), 0 1.5px 8px rgba(0,0,0,0.08);
+            background: #181820;
+            color: #00e6d0;
+        }
+    </style>
+} 

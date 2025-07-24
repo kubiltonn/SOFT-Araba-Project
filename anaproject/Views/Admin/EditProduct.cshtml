@@ -1,0 +1,308 @@
+@model anaproject.Models.Product
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.admin-section-title { 
+    color: #00e6d0; 
+    text-shadow: 0 1px 8px #00e6d077; 
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.admin-subtitle {
+    color: #a0a0a0;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.admin-container {
+    background: linear-gradient(135deg, #1a1a1f 0%, #23232b 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 230, 208, 0.1);
+    border: 1px solid rgba(0, 230, 208, 0.2);
+}
+
+.admin-form {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 230, 208, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.form-control-admin {
+    background: #1a1a1f;
+    border: 1px solid #00e6d0;
+    color: #e0f7f4;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-control-admin:focus {
+    background: #1a1a1f;
+    border-color: #00e6d0;
+    color: #e0f7f4;
+    box-shadow: 0 0 0 0.2rem rgba(0, 230, 208, 0.25);
+    transform: translateY(-2px);
+}
+
+.form-label-admin {
+    color: #00e6d0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.btn-admin-primary {
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 100%);
+    border: none;
+    color: #23232b;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 230, 208, 0.3);
+}
+
+.btn-admin-primary:hover {
+    background: linear-gradient(135deg, #00b3a0 0%, #00e6d0 100%);
+    color: #23232b;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 230, 208, 0.4);
+}
+
+.btn-secondary-admin {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.btn-secondary-admin:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #6c757d 100%);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+}
+
+.form-check-input-admin {
+    background-color: #1a1a1f;
+    border: 2px solid #00e6d0;
+    border-radius: 6px;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.form-check-input-admin:checked {
+    background-color: #00e6d0;
+    border-color: #00e6d0;
+}
+
+.form-check-label-admin {
+    color: #e0f7f4;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+.alert-custom {
+    border-radius: 15px;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    color: white;
+}
+
+.product-preview {
+    background: rgba(0, 230, 208, 0.1);
+    border: 1px solid rgba(0, 230, 208, 0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.preview-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    border: 2px solid #00e6d0;
+}
+
+@@media (max-width: 768px) {
+    .admin-container {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    .admin-form {
+        padding: 1.5rem;
+    }
+}
+</style>
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="admin-section-title mb-3">Ürün Düzenle</h1>
+                <p class="admin-subtitle mb-4">Ürün bilgilerini güncelleyin</p>
+            </div>
+
+            <!-- Error Message -->
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger alert-custom alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    @ViewBag.ErrorMessage
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <!-- Edit Product Form -->
+            <div class="admin-container">
+                <div class="admin-form">
+                    <form method="post" asp-action="EditProductPost" asp-route-id="@Model.Id">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreatedAt" />
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name" class="form-label form-label-admin">Ürün Adı *</label>
+                                <input asp-for="Name" class="form-control form-control-admin" placeholder="Ürün adını girin" required>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Category" class="form-label form-label-admin">Kategori *</label>
+                                <select asp-for="Category" class="form-control form-control-admin" required>
+                                    <option value="">Kategori seçin</option>
+                                    <option value="Merchandise">Merchandise</option>
+                                    <option value="AutoParts">Araç Parçaları</option>
+                                    <option value="Accessories">Aksesuarlar</option>
+                                </select>
+                                <span asp-validation-for="Category" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Price" class="form-label form-label-admin">Fiyat (TL) *</label>
+                                <input asp-for="Price" type="number" step="0.01" min="0" class="form-control form-control-admin" placeholder="0.00" required>
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ImageUrl" class="form-label form-label-admin">Resim URL</label>
+                                <input asp-for="ImageUrl" class="form-control form-control-admin" placeholder="https://example.com/image.jpg">
+                                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <div class="product-preview">
+                                        <small class="text-muted mb-2 d-block">Önizleme:</small>
+                                        <img src="@Model.ImageUrl" alt="@Model.Name" class="preview-image" onerror="this.style.display='none'">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label form-label-admin">Açıklama</label>
+                            <textarea asp-for="Description" class="form-control form-control-admin" rows="4" placeholder="Ürün açıklamasını girin"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input asp-for="IsAvailable" class="form-check-input form-check-input-admin" type="checkbox">
+                                <label asp-for="IsAvailable" class="form-check-label form-check-label-admin">
+                                    <i class="fas fa-toggle-on me-1"></i>Ürün aktif (satışta)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="@Url.Action("Products", "Admin")" class="btn btn-secondary-admin">
+                                <i class="fas fa-arrow-left me-2"></i>Geri Dön
+                            </a>
+                            <button type="submit" class="btn btn-admin-primary">
+                                <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Form validation
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                var name = $('#Name').val().trim();
+                var category = $('#Category').val();
+                var price = parseFloat($('#Price').val());
+                
+                if (!name) {
+                    alert('Ürün adı gereklidir!');
+                    e.preventDefault();
+                    return false;
+                }
+                
+                if (!category) {
+                    alert('Kategori seçimi gereklidir!');
+                    e.preventDefault();
+                    return false;
+                }
+                
+                if (isNaN(price) || price <= 0) {
+                    alert('Geçerli bir fiyat giriniz!');
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Image preview
+            $('#ImageUrl').on('input', function() {
+                var imageUrl = $(this).val();
+                var previewContainer = $('.product-preview');
+                
+                if (imageUrl) {
+                    if (previewContainer.length === 0) {
+                        $(this).after('<div class="product-preview"><small class="text-muted mb-2 d-block">Önizleme:</small><img src="' + imageUrl + '" class="preview-image" onerror="this.style.display=\'none\'"></div>');
+                    } else {
+                        previewContainer.find('img').attr('src', imageUrl);
+                    }
+                } else {
+                    previewContainer.remove();
+                }
+            });
+        });
+    </script>
+} 

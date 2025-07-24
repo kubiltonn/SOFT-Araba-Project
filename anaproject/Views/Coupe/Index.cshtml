@@ -1,0 +1,59 @@
+﻿@model IEnumerable<anaproject.Models.Cars.Car>
+
+@{
+    ViewData["Title"] = "SOFT Coupe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="audi-suv-hero text-center py-5 mb-4">
+    <h1 class="display-4 font-weight-bold" data-aos="fade-down">SOFT Coupe Modelleri</h1>
+    <p class="lead mb-0">Güç, zarafet ve tutkunun kesiştiği yerde SOFT Coupe ile tanışın.</p>
+</div>
+
+<!-- Kartların üstüne video alanı -->
+<div class="container mb-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="ratio ratio-16x9 audi-hero">
+                    <video class="w-200" controls>
+                        <source src="/videos/SOFTCoupe.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        @foreach (var car in Model)
+        {
+            <div class="col d-flex align-items-stretch">
+                <div class="card audi-card shadow-sm mb-0">
+                    <img src="@(string.IsNullOrEmpty(car.CarImage) ? "/img/softSUV.jpeg" : car.CarImage)" class="card-img-top" alt="@car.CarAdi" style="height:220px;object-fit:cover;" data-aos="zoom-in">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" style="font-weight:bold; color:#fff;">@car.CarAdi</h5>
+                        <p class="card-text mb-2" style="color:#b0e6e0;">@car.CarModel</p>
+                        <p class="card-text flex-grow-1" style="color:#b0e6e0;">@car.CarTur</p>
+                        <a href="/Coupe/Discover/@car.ID" class="btn btn-outline-primary mt-auto">Detay</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+            <h2 class="mb-3" data-aos="fade-up">SOFT Coupe Ailesi</h2>
+            <p>
+                SOFT Coupe modelleri, sportif sürüş deneyimiyle teknolojiyi ve estetiği bir araya getirir. Akıcı hatlar, düşük ağırlık merkezi ve yüksek performans ile yola hükmetmeye hazır olun.
+            </p>
+            <ul class="list-unstyled">
+                <li>• Dinamik ve sportif dış tasarım</li>
+                <li>• Hızlı tepki veren elektrikli motor teknolojisi</li>
+                <li>• Sürücü odaklı kokpit ve dijital kontrol sistemleri</li>
+                <li>• Yüksek hızda denge sağlayan gelişmiş süspansiyon yapısı</li>
+            </ul>
+        </div>
+    </div>
+</div>

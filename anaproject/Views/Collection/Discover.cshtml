@@ -1,0 +1,589 @@
+@model anaproject.Models.Cars.Car
+@{
+    ViewData["Title"] = $"{Model.CarAdi} - SOFT Koleksiyon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.discover-hero {
+    background: linear-gradient(135deg, #18181f 0%, #23232b 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.discover-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2300e6d0" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.discover-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.car-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(0, 230, 208, 0.3);
+    margin-bottom: 1rem;
+}
+
+.car-subtitle {
+    font-size: 1.5rem;
+    color: #e0f7f4;
+    margin-bottom: 2rem;
+}
+
+.car-gallery {
+    background: #23232b;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.main-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 2px solid #00e6d0;
+}
+
+.thumbnail-gallery {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+    border-color: #00e6d0;
+    transform: scale(1.05);
+}
+
+.car-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.spec-card {
+    background: #23232b;
+    border: 1px solid #00e6d0;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.spec-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 230, 208, 0.2);
+}
+
+.spec-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00e6d0;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.spec-label {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.car-description {
+    background: #23232b;
+    border: 1px solid #00e6d0;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.car-description h3 {
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+
+.car-description p {
+    color: #e0f7f4;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.car-details {
+    background: #23232b;
+    border: 1px solid #00e6d0;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: #b0b0b0;
+    font-weight: 500;
+}
+
+.detail-value {
+    color: #00e6d0;
+    font-weight: 600;
+}
+
+.car-price {
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    color: #23232b;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.price-amount {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.price-label {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-collection {
+    flex: 1;
+    min-width: 200px;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-collection {
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    color: #23232b;
+    border: none;
+}
+
+.btn-primary-collection:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 230, 208, 0.3);
+    color: #23232b;
+}
+
+.btn-outline-collection {
+    background: transparent;
+    color: #00e6d0;
+    border: 2px solid #00e6d0;
+}
+
+.btn-outline-collection:hover {
+    background: #00e6d0;
+    color: #23232b;
+    transform: translateY(-2px);
+}
+
+@@media (max-width: 768px) {
+    .car-title {
+        font-size: 2.5rem;
+    }
+    
+    .car-specs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-collection {
+        min-width: auto;
+    }
+}
+
+    .stat-item-value {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    /* Video Bölümü */
+    .car-video-section {
+        background: #23232b;
+        border: 2px solid #00e6d0;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .car-video-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0, 230, 208, 0.1) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+    }
+
+    .video-container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .video-title {
+        color: #00e6d0;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .video-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 230, 208, 0.3);
+    }
+
+    .collection-video {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 1rem;
+        border: 2px solid #00e6d0;
+    }
+
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+    }
+
+    .video-wrapper:hover .video-overlay {
+        opacity: 1;
+    }
+
+    .play-button {
+        width: 80px;
+        height: 80px;
+        background: rgba(0, 230, 208, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #23232b;
+        font-size: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .play-button:hover {
+        transform: scale(1.1);
+        background: rgba(0, 230, 208, 1);
+    }
+
+    .video-description {
+        color: #e0f7f4;
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .no-video {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: #b0b0b0;
+    }
+
+    .no-video-icon {
+        font-size: 4rem;
+        color: #00e6d0;
+        margin-bottom: 1rem;
+    }
+
+    @@keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    @@media (max-width: 768px) {
+        .collection-video {
+            height: 300px;
+        }
+        
+        .video-title {
+            font-size: 1.5rem;
+        }
+        
+        .play-button {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="discover-hero">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <div class="discover-hero-content">
+                    <h1 class="car-title">@Model.CarAdi</h1>
+                    <p class="car-subtitle">@Model.CarModel - @Model.CarYil | SOFT Koleksiyon</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="car-gallery">
+        <img src="@Model.CarImage" alt="@Model.CarAdi" class="main-image" id="mainImage">
+        
+        @if (Model.CarImages != null && Model.CarImages.Any())
+        {
+            <div class="thumbnail-gallery">
+                <img src="@Model.CarImage" alt="@Model.CarAdi" class="thumbnail" onclick="changeMainImage('@Model.CarImage')">
+                @foreach (var image in Model.CarImages)
+                {
+                    <img src="@image.ImageUrl" alt="@Model.CarAdi" class="thumbnail" onclick="changeMainImage('@image.ImageUrl')">
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="car-specs-grid">
+        <div class="spec-card">
+            <span class="spec-value">@Model.CarBeygir</span>
+            <span class="spec-label">Beygir Gücü</span>
+        </div>
+        <div class="spec-card">
+            <span class="spec-value">@Model.CarKW</span>
+            <span class="spec-label">Kilowatt</span>
+        </div>
+        <div class="spec-card">
+            <span class="spec-value">@Model.CarMenzil</span>
+            <span class="spec-label">Menzil (KM)</span>
+        </div>
+        <div class="spec-card">
+            <span class="spec-value">@Model.CarSifirYuz</span>
+            <span class="spec-label">0-100 (saniye)</span>
+        </div>
+    </div>
+</section>
+
+@if (!string.IsNullOrEmpty(Model.CarDescription))
+{
+    <section class="container py-5">
+        <div class="car-description">
+            <h3>Model Hakkında</h3>
+            <p>@Model.CarDescription</p>
+        </div>
+    </section>
+}
+
+<section class="container py-5">
+    <div class="car-details">
+        <h3 class="mb-4" style="color: #00e6d0;">Teknik Detaylar</h3>
+        
+        <div class="detail-item">
+            <span class="detail-label">Model</span>
+            <span class="detail-value">@Model.CarModel</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Yıl</span>
+            <span class="detail-value">@Model.CarYil</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Tür</span>
+            <span class="detail-value">@Model.CarTur</span>
+        </div>
+        
+        @if (Model.Category != null)
+        {
+            <div class="detail-item">
+                <span class="detail-label">Kategori</span>
+                <span class="detail-value">@Model.Category.CategoryName</span>
+            </div>
+        }
+        
+        @if (Model.Color != null)
+        {
+            <div class="detail-item">
+                <span class="detail-label">Renk</span>
+                <span class="detail-value">@Model.Color.ColorName</span>
+            </div>
+        }
+        
+        @if (Model.Package != null)
+        {
+            <div class="detail-item">
+                <span class="detail-label">Paket</span>
+                <span class="detail-value">@Model.Package.PackageName</span>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Car Price -->
+<section class="container py-5">
+    <div class="car-price">
+        <div class="price-amount">@Model.CarFiyat.ToString("C")</div>
+        <div class="price-label">Koleksiyon Fiyatı</div>
+    </div>
+</section>
+
+<!-- Action Buttons -->
+<section class="container py-5">
+    <div class="action-buttons">
+        <a href="#" class="btn-collection btn-primary-collection">
+            <i class="fas fa-phone me-2"></i>Bilgi Al
+        </a>
+        <a href="#" class="btn-collection btn-outline-collection">
+            <i class="fas fa-calendar me-2"></i>Test Sürüşü
+        </a>
+        <a href="@Url.Action("Index", "Collection")" class="btn-collection btn-outline-collection">
+            <i class="fas fa-arrow-left me-2"></i>Koleksiyona Dön
+        </a>
+    </div>
+</section>
+
+<!-- Car Video -->
+<section class="container py-5">
+    <div class="car-video-section">
+        <div class="video-container">
+            <h3 class="video-title">
+                <i class="fas fa-play-circle me-2"></i>@Model.CarAdi Tanıtım Videosu
+            </h3>
+            
+            <div class="video-wrapper">
+                <video class="collection-video" controls preload="metadata">
+                    @{
+                        string videoPath = "/videos/";
+                        if (Model.CarAdi.ToLower().Contains("ito"))
+                        {
+                            videoPath += "soft_ITO.mp4";
+                        }
+                        else if (Model.CarAdi.ToLower().Contains("kitty"))
+                        {
+                            videoPath += "softy_kitty.mp4";
+                        }
+                        else
+                        {
+                            videoPath += "soft_ITO.mp4"; // Varsayılan video
+                        }
+                    }
+                    <source src="@videoPath" type="video/mp4">
+                    Tarayıcınız video oynatmayı desteklemiyor.
+                </video>
+                <div class="video-overlay" onclick="playVideo()">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="video-description">
+                @Model.CarAdi'nin özel tanıtım videosunu izleyin. Bu koleksiyon modelinin benzersiz özelliklerini ve performansını keşfedin.
+            </p>
+        </div>
+    </div>
+</section>
+
+<script>
+function changeMainImage(imageUrl) {
+    document.getElementById('mainImage').src = imageUrl;
+}
+
+function playVideo() {
+    const video = document.querySelector('.collection-video');
+    const overlay = document.querySelector('.video-overlay');
+    
+    if (video && overlay) {
+        video.play();
+        overlay.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.collection-video');
+    const overlay = document.querySelector('.video-overlay');
+    
+    if (video && overlay) {
+        video.addEventListener('ended', function() {
+            overlay.style.display = 'flex';
+        });
+        
+        video.addEventListener('pause', function() {
+            overlay.style.display = 'flex';
+        });
+    }
+});
+</script> 

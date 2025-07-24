@@ -1,0 +1,415 @@
+@{
+    ViewData["Title"] = "Acil Yol Yardım - SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.emergency-hero {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.emergency-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.emergency-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.emergency-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.emergency-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.sos-button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 8px 32px rgba(220, 53, 69, 0.4);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.sos-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 40px rgba(220, 53, 69, 0.6);
+    background: #c82333;
+    color: white;
+}
+
+@@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.emergency-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.emergency-card {
+    background: #23232b;
+    border: 2px solid #dc3545;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.emergency-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(220, 53, 69, 0.2);
+}
+
+.emergency-card-icon {
+    font-size: 3rem;
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.emergency-card h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.emergency-card p {
+    color: #b0b0b0;
+    margin-bottom: 1.5rem;
+}
+
+.emergency-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.emergency-btn:hover {
+    background: #c82333;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.emergency-btn-outline {
+    background: transparent;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+}
+
+.emergency-btn-outline:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.contact-section {
+    background: #18181f;
+    padding: 4rem 0;
+    margin-top: 3rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.contact-item {
+    text-align: center;
+    padding: 2rem;
+    background: #23232b;
+    border-radius: 1rem;
+    border: 1px solid #333;
+}
+
+.contact-item-icon {
+    font-size: 2.5rem;
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+
+.contact-item h4 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.contact-item p {
+    color: #b0b0b0;
+    margin-bottom: 1rem;
+}
+
+.contact-item a {
+    color: #00e6d0;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-item a:hover {
+    color: #00b3a0;
+}
+
+@@media (max-width: 768px) {
+    .emergency-title {
+        font-size: 2.5rem;
+    }
+    
+    .emergency-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .sos-button {
+        width: 100px;
+        height: 100px;
+        font-size: 1.2rem;
+    }
+    
+    .emergency-cards {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="emergency-hero">
+    <div class="container">
+        <div class="emergency-hero-content">
+            <h1 class="emergency-title">Acil Yol Yardım</h1>
+            <p class="emergency-subtitle">SOFT araç sahipleri için 7/24 acil destek</p>
+            <button class="sos-button" onclick="sendEmergencyAlert()">
+                <i class="fas fa-exclamation-triangle"></i><br>
+                SOS
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Services -->
+<section class="container py-5">
+    <div class="emergency-cards">
+        <div class="emergency-card">
+            <div class="emergency-card-icon">
+                <i class="fas fa-battery-quarter"></i>
+            </div>
+            <h3>Pil Sorunu</h3>
+            <p>Elektrikli araçlarınız için özel pil yardım hizmeti</p>
+            <a href="#" class="emergency-btn" onclick="requestBatteryHelp()">
+                <i class="fas fa-phone me-2"></i>Yardım İste
+            </a>
+        </div>
+        
+        <div class="emergency-card">
+            <div class="emergency-card-icon">
+                <i class="fas fa-tire"></i>
+            </div>
+            <h3>Lastik Patlağı</h3>
+            <p>Yolda kaldığınızda hızlı lastik değişim hizmeti</p>
+            <a href="#" class="emergency-btn" onclick="requestTireHelp()">
+                <i class="fas fa-tools me-2"></i>Yardım İste
+            </a>
+        </div>
+        
+        <div class="emergency-card">
+            <div class="emergency-card-icon">
+                <i class="fas fa-car-crash"></i>
+            </div>
+            <h3>Kaza Durumu</h3>
+            <p>Acil müdahale ve kaza sonrası destek hizmeti</p>
+            <a href="#" class="emergency-btn" onclick="requestAccidentHelp()">
+                <i class="fas fa-ambulance me-2"></i>Yardım İste
+            </a>
+        </div>
+        
+        <div class="emergency-card">
+            <div class="emergency-card-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <h3>Teknik Arıza</h3>
+            <p>Uzman teknik destek ve uzaktan yardım</p>
+            <a href="#" class="emergency-btn" onclick="requestTechnicalHelp()">
+                <i class="fas fa-wrench me-2"></i>Yardım İste
+            </a>
+        </div>
+        
+        <div class="emergency-card">
+            <div class="emergency-card-icon">
+                <i class="fas fa-charging-station"></i>
+            </div>
+            <h3>Şarj Sorunu</h3>
+            <p>En yakın şarj istasyonu ve mobil şarj hizmeti</p>
+            <a href="#" class="emergency-btn" onclick="requestChargingHelp()">
+                <i class="fas fa-bolt me-2"></i>Yardım İste
+            </a>
+        </div>
+        
+        <div class="emergency-card">
+            <div class="emergency-card-icon">
+                <i class="fas fa-truck"></i>
+            </div>
+            <h3>Çekici Hizmeti</h3>
+            <p>Güvenilir çekici ve araç taşıma hizmeti</p>
+            <a href="#" class="emergency-btn" onclick="requestTowingHelp()">
+                <i class="fas fa-truck me-2"></i>Yardım İste
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 style="color: #00e6d0; font-size: 2.5rem; margin-bottom: 1rem;">İletişim Seçenekleri</h2>
+            <p style="color: #b0b0b0; font-size: 1.2rem;">Size en uygun yöntemle ulaşın</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-item-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h4>7/24 Acil Hat</h4>
+                <p>Anında telefon desteği</p>
+                <a href="tel:08502222222">0850 222 22 22</a>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-item-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h4>WhatsApp Destek</h4>
+                <p>Anlık mesajlaşma</p>
+                <a href="https://wa.me/905551234567">+90 555 123 45 67</a>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-item-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h4>Video Görüşme</h4>
+                <p>Uzaktan teknik destek</p>
+                <a href="#" onclick="startVideoCall()">Görüşme Başlat</a>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-item-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h4>Konum Paylaş</h4>
+                <p>GPS konumunuzu paylaşın</p>
+                <a href="#" onclick="shareLocation()">Konum Gönder</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function sendEmergencyAlert() {
+    if (confirm('Acil durum bildirimi göndermek istediğinizden emin misiniz?')) {
+        // Konum al
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const alertData = {
+                    carModel: 'SOFT Araç',
+                    licensePlate: '34 ABC 123',
+                    problemType: 'Acil Durum',
+                    location: `${position.coords.latitude}, ${position.coords.longitude}`,
+                    phoneNumber: '5551234567',
+                    description: 'SOS butonu ile acil durum bildirimi'
+                };
+                
+                fetch('/Emergency/SendEmergencyAlert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(alertData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Acil durum bildirimi gönderildi! En kısa sürede size ulaşacağız.');
+                })
+                .catch(error => {
+                    alert('Bildirim gönderilirken hata oluştu. Lütfen telefon ile arayın.');
+                });
+            });
+        } else {
+            alert('Konum bilgisi alınamadı. Lütfen telefon ile arayın.');
+        }
+    }
+}
+
+function requestBatteryHelp() {
+    alert('Pil yardım talebiniz alındı. En yakın teknik ekibimiz size ulaşacak.');
+}
+
+function requestTireHelp() {
+    alert('Lastik yardım talebiniz alındı. En yakın servis ekibimiz size ulaşacak.');
+}
+
+function requestAccidentHelp() {
+    alert('Kaza durumu bildirildi. Acil müdahale ekibi yönlendirildi.');
+}
+
+function requestTechnicalHelp() {
+    alert('Teknik destek talebiniz alındı. Uzman ekibimiz size ulaşacak.');
+}
+
+function requestChargingHelp() {
+    alert('Şarj yardım talebiniz alındı. En yakın şarj istasyonu bilgisi gönderildi.');
+}
+
+function requestTowingHelp() {
+    alert('Çekici talebiniz alındı. En yakın çekici yönlendirildi.');
+}
+
+function startVideoCall() {
+    alert('Video görüşme başlatılıyor...');
+}
+
+function shareLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const location = `${position.coords.latitude}, ${position.coords.longitude}`;
+            alert(`Konumunuz paylaşıldı: ${location}`);
+        });
+    } else {
+        alert('Konum bilgisi alınamadı.');
+    }
+}
+</script> 

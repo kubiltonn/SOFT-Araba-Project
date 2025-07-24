@@ -1,0 +1,102 @@
+@model List<anaproject.Models.ServiceAppointment>
+@{
+    ViewData["Title"] = "Servis Randevuları | Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold soft-section-title">Servis Randevuları (Admin)</h1>
+        <a href="@Url.Action("Index", "Admin")" class="btn btn-outline-info">
+            <i class="fas fa-arrow-left me-2"></i>Admin Paneli
+        </a>
+    </div>
+    
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+    
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+    }
+    
+    <div class="table-responsive">
+        <table class="table table-dark table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ad Soyad</th>
+                    <th>Telefon</th>
+                    <th>E-posta</th>
+                    <th>Araç Modeli</th>
+                    <th>Plaka</th>
+                    <th>Tarih/Saat</th>
+                    <th>Açıklama</th>
+                    <th>Durum</th>
+                    <th>Oluşturulma</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var app = Model[i];
+                        var statusClass = app.Status == "Approved" ? "text-success" : (app.Status == "Rejected" ? "text-danger" : "text-warning");
+                        
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@app.Name @app.Surname</td>
+                            <td>@app.Phone</td>
+                            <td>@app.Email</td>
+                            <td>@app.CarModel</td>
+                            <td>@app.Plate</td>
+                            <td>@(app.AppointmentDate.ToString("dd.MM.yyyy HH:mm"))</td>
+                            <td>@(app.Description ?? "")</td>
+                            <td class="@statusClass">@app.Status</td>
+                            <td>@(app.CreatedAt.ToString("dd.MM.yyyy HH:mm"))</td>
+                            <td>
+                                @if (app.Status == "Pending")
+                                {
+                                    <form method="post" action="@Url.Action("UpdateStatus", "Admin")" style="display: inline;">
+                                        <input type="hidden" name="id" value="@app.Id" />
+                                        <input type="hidden" name="status" value="Approved" />
+                                        <button type="submit" class="btn btn-sm btn-success me-1" onclick="return confirm('Bu randevuyu onaylamak istediğinize emin misiniz?')">Onayla</button>
+                                    </form>
+                                    <form method="post" action="@Url.Action("UpdateStatus", "Admin")" style="display: inline;">
+                                        <input type="hidden" name="id" value="@app.Id" />
+                                        <input type="hidden" name="status" value="Rejected" />
+                                        <button type="submit" class="btn btn-sm btn-danger me-1" onclick="return confirm('Bu randevuyu reddetmek istediğinize emin misiniz?')">Reddet</button>
+                                    </form>
+                                }
+                                <form method="post" action="@Url.Action("DeleteAppointment", "Admin")" style="display: inline;">
+                                    <input type="hidden" name="id" value="@app.Id" />
+                                    <button type="submit" class="btn btn-sm btn-outline-light" onclick="return confirm('Bu randevuyu silmek istediğinize emin misiniz?')">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="11" class="text-center">Kayıt bulunamadı.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<style>
+.soft-section-title { color: #00e6d0; text-shadow: 0 1px 8px #00e6d077; }
+.table-dark th, .table-dark td { color: #e0f7f4; }
+</style> 

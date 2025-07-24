@@ -1,0 +1,146 @@
+@{
+    ViewData["Title"] = "Sıkça Sorulan Sorular | SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .sss-hero {
+        background: linear-gradient(120deg, #0d0d0d 60%, #00e6d0 100%);
+        padding: 48px 0 32px 0;
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+    .sss-hero h1 {
+        color: #fff;
+        font-weight: 800;
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 24px #00e6d0cc, 0 2px 24px #000a;
+    }
+    .sss-hero p {
+        color: #e0f7f4;
+        font-size: 1.15rem;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .sss-section h2 {
+        color: #00e6d0;
+        font-weight: 700;
+        font-size: 1.7rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #00e6d0;
+        display: inline-block;
+    }
+    .accordion-item {
+        background: rgba(35,35,43,0.7);
+        border: 1px solid #00e6d0;
+        border-radius: 1rem !important;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(8px);
+    }
+    .accordion-header .accordion-button {
+        background: linear-gradient(135deg, rgba(35,35,43,0.85) 60%, rgba(0,230,208,0.15) 100%);
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 1rem !important;
+        box-shadow: none;
+    }
+    .accordion-header .accordion-button:not(.collapsed) {
+        background: linear-gradient(135deg, rgba(0,230,208,0.2) 0%, rgba(35,35,43,0.9) 100%);
+        color: #00e6d0;
+    }
+    .accordion-body {
+        color: #e0f7f4;
+        font-size: 1rem;
+        line-height: 1.6;
+        padding: 1.5rem;
+    }
+</style>
+
+<div class="sss-hero">
+    <h1>Sıkça Sorulan Sorular (SSS)</h1>
+    <p>Elektrikli mobilite, şarj ve araç bakımı hakkında en çok merak edilen sorular ve yanıtları burada.</p>
+</div>
+
+<div class="container pb-5">
+    <div class="sss-section mb-5">
+        <h2>Şarj ve Yakıt Alımı</h2>
+        <div class="accordion" id="accordionSarj">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        AC veya DC ne anlama geliyor?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionSarj">
+                    <div class="accordion-body">
+                        AC (Alternating Current) alternatif akım, DC (Direct Current) ise doğru akım anlamına gelir. Elektrikli araçlar her ikisini de kullanabilir, ancak bataryada sadece DC depolanabilir. Bu nedenle, AC akımı araca girerken bir dönüştürücü ile DC'ye çevrilir.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Elektrikli bir aracı bir ev veya endüstriyel prizde nasıl şarj edebilirim?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSarj">
+                    <div class="accordion-body">
+                        SOFT elektrikli araçları, kutu içeriğinde bulunan şarj donanımıyla evde veya endüstriyel prizlerde şarj edilebilir. Daha hızlı ve güvenli şarj için bir elektrikçiye danışarak evinizde bir wallbox kurdurmanız önerilir.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sss-section">
+        <h2>Menzil</h2>
+        <div class="accordion" id="accordionMenzil">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Elektrikli aracımın menzilini neler etkiler?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionMenzil">
+                    <div class="accordion-body">
+                        Menzil; sürüş tarzı, hava koşulları (özellikle soğuk hava), yol eğimi, araç yükü ve klima/ısıtma kullanımı gibi birçok faktörden etkilenir. Sakin ve öngörülü bir sürüş, menzili artırmaya yardımcı olur.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sss-section">
+        <h2>Genel ve Servis</h2>
+        <div class="accordion" id="accordionServis">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        SOFT Şarj Sistemi Connect’in avantajları nelerdir?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionServis">
+                    <div class="accordion-body">
+                        SOFT Şarj Sistemi, evdeki ağ altyapısıyla entegre olarak elektrik kesintilerini önler ve şarj maliyetlerini optimize eder. Örneğin, enerji maliyetlerinin düşük olduğu gece saatlerinde şarj işlemini otomatik olarak başlatabilir. Ayrıca, kendi ürettiğiniz güneş enerjisini kullanma ve şarj edilen enerjiyi belgeleme gibi akıllı özellikler sunar.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Yağ değişimine gerek olmadığı için elektrikli bir otomobilin servise ihtiyacı var mı?
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionServis">
+                    <div class="accordion-body">
+                        Evet, elektrikli otomobillerin de düzenli bakıma ihtiyacı vardır. Yağ değişimi olmasa da, fren sistemi, batarya sağlığı, soğutma sıvıları ve yüksek voltaj bileşenleri gibi kritik parçaların kontrol edilmesi gerekir. SOFT servisleri, aracınızın güvenliğini ve performansını en üst düzeyde tutmak için bu kontrolleri titizlikle yapar.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

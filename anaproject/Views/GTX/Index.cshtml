@@ -1,0 +1,94 @@
+﻿@model IEnumerable<anaproject.Models.Cars.Car>
+
+@{
+    ViewData["Title"] = "SOFT GTX";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="audi-suv-hero text-center py-5 mb-4">
+    <h1 class="display-4 font-weight-bold" data-aos="fade-down">SOFT GTX</h1>
+    <p class="lead mb-0">Yüksek performansın, ileri teknolojinin ve kusursuz tasarımın buluştuğu nokta: SOFT GTX.</p>
+</div>
+
+<!-- Kartların üstüne video alanı -->
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="ratio ratio-16x9 modern-video-wrapper">
+                <video class="w-200 modern-video" controls>
+                    <source src="/videos/softGTX.mp4" type="video/mp4">
+                </video>
+                <div class="modern-video-overlay" style="display:none;">
+                    <button class="modern-play-btn" aria-label="Oynat">
+                        <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="30" fill="rgba(0,230,208,0.85)"/><polygon points="24,18 46,30 24,42" fill="#fff"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+        @foreach (var car in Model)
+        {
+            <div class="col d-flex align-items-stretch">
+                <div class="card audi-card shadow-sm mb-0">
+                    <img src="@(string.IsNullOrEmpty(car.CarImage) ? "/img/softSUV.jpeg" : car.CarImage)" class="card-img-top" alt="@car.CarAdi" style="height:220px;object-fit:cover;" data-aos="zoom-in">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" style="font-weight:bold; color:#fff;">@car.CarAdi</h5>
+                        <p class="card-text mb-2" style="color:#b0e6e0;">@car.CarModel</p>
+                        <p class="card-text flex-grow-1" style="color:#b0e6e0;">@car.CarTur</p>
+                        <a href="/GTX/Discover/@car.ID" class="btn btn-outline-primary mt-auto">Keşfet</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+            <h2 class="mb-3" data-aos="fade-up">SOFT GTX – Performans Yeniden Tanımlandı</h2>
+            <p>
+                SOFT GTX, elektrikli sürüş deneyimini adrenalinle buluşturan özel bir Gran Turismo modelidir. Gücünü sessizlikten, hızını ise gelişmiş mühendislikten alan SOFT GTX; uzun menzili, yüksek torku ve aerodinamik tasarımıyla performans dünyasında yeni bir çağ başlatır.
+            </p>
+            <ul class="list-unstyled">
+                <li>• 500+ beygir gücünde tamamen elektrikli motor</li>
+                <li>• 0–100 km/s hızlanma: 2 saniyenin altında</li>
+                <li>• Aktif aerodinamik destekli sportif tasarım</li>
+                <li>• Adaptif süspansiyon ve dört çeker sürüş sistemi</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    .audi-suv-hero {
+        background: linear-gradient(90deg, #23232b 60%, #101014 100%);
+        color: #fff;
+        border-radius: 1rem;
+    }
+
+    .audi-suv-card {
+        border-radius: 1rem;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+        .audi-suv-card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            transform: translateY(-6px) scale(1.03);
+        }
+
+        .audi-suv-card .btn-outline-primary {
+            border-radius: 2rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+            .audi-suv-card .btn-outline-primary:hover {
+                background: #00e6d0;
+                color: #101014;
+                border-color: #00e6d0;
+            }
+</style>

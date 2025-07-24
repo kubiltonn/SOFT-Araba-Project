@@ -1,0 +1,442 @@
+@{
+    ViewData["Title"] = "Finansman - SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.financing-hero {
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 50%, #008f7a 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+}
+
+.financing-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.financing-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%23ffffff;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%23ffffff;stop-opacity:0"/></radialGradient></defs><circle cx="50" cy="50" r="30" fill="url(%23glow)"/><circle cx="150" cy="150" r="40" fill="url(%23glow)"/><circle cx="100" cy="100" r="25" fill="url(%23glow)"/></svg>');
+    opacity: 0.4;
+    animation: float 6s ease-in-out infinite;
+}
+
+@@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.financing-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.financing-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #ffffff, #f0f8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@@keyframes glow {
+    from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(0, 230, 208, 0.5); }
+}
+
+.financing-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-weight: 300;
+}
+
+.financing-features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.financing-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.financing-feature:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.financing-feature i {
+    color: #00e6d0;
+    font-size: 1.2rem;
+}
+
+.calculator-section {
+    background: #23232b;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid #333;
+}
+
+.calculator-title {
+    color: #00e6d0;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.calculator-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    color: #00e6d0;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    background: #18181f;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #00e6d0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 230, 208, 0.25);
+    outline: none;
+}
+
+.calculate-btn {
+    background: #00e6d0;
+    color: #23232b;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    grid-column: 1 / -1;
+}
+
+.calculate-btn:hover {
+    background: #00b3a0;
+    transform: translateY(-2px);
+}
+
+.results-section {
+    background: #18181f;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    border: 1px solid #333;
+    display: none;
+}
+
+.results-title {
+    color: #00e6d0;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-label {
+    color: #b0b0b0;
+    font-weight: 500;
+}
+
+.result-value {
+    color: #00e6d0;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.options-section {
+    background: #18181f;
+    padding: 3rem 0;
+    margin-top: 3rem;
+}
+
+.option-card {
+    text-align: center;
+    padding: 2rem;
+    background: #23232b;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.option-card:hover {
+    transform: translateY(-5px);
+    border-color: #00e6d0;
+}
+
+.option-icon {
+    font-size: 3rem;
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+
+.option-title {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.option-text {
+    color: #b0b0b0;
+    line-height: 1.6;
+}
+
+@@media (max-width: 768px) {
+    .financing-title {
+        font-size: 2.5rem;
+    }
+    
+    .financing-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .financing-features {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .calculator-form {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="financing-hero">
+    <div class="container">
+        <div class="financing-hero-content">
+            <h1 class="financing-title">Finansman</h1>
+            <p class="financing-subtitle">SOFT araçlarını uygun ödeme koşullarıyla sahip olun</p>
+            <div class="financing-features">
+                <div class="financing-feature">
+                    <i class="fas fa-percentage"></i>
+                    <span>Düşük Faiz</span>
+                </div>
+                <div class="financing-feature">
+                    <i class="fas fa-clock"></i>
+                    <span>Hızlı Onay</span>
+                </div>
+                <div class="financing-feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Güvenli İşlem</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Calculator Section -->
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="calculator-section">
+                <h3 class="calculator-title">Finansman Hesaplayıcı</h3>
+                
+                <form id="financingForm">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label class="form-label">Araç Fiyatı (₺)</label>
+                            <input type="number" class="form-control" id="carPrice" value="1500000" min="0" step="1000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Peşinat (₺)</label>
+                            <input type="number" class="form-control" id="downPayment" value="300000" min="0" step="1000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Vade (Ay)</label>
+                            <select class="form-control" id="months">
+                                <option value="12">12 Ay</option>
+                                <option value="24">24 Ay</option>
+                                <option value="36" selected>36 Ay</option>
+                                <option value="48">48 Ay</option>
+                                <option value="60">60 Ay</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Faiz Oranı (%)</label>
+                            <input type="number" class="form-control" id="interestRate" value="1.5" min="0" step="0.1">
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn">
+                            <i class="fas fa-calculator me-2"></i>Hesapla
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="results-section" id="resultsSection">
+                    <h4 class="results-title">Hesaplama Sonuçları</h4>
+                    
+                    <div class="result-item">
+                        <span class="result-label">Kredi Tutarı:</span>
+                        <span class="result-value" id="loanAmount">₺0</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span class="result-label">Aylık Taksit:</span>
+                        <span class="result-value" id="monthlyPayment">₺0</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span class="result-label">Toplam Faiz:</span>
+                        <span class="result-value" id="totalInterest">₺0</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span class="result-label">Toplam Ödeme:</span>
+                        <span class="result-value" id="totalPayment">₺0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Financing Options -->
+<section class="options-section">
+    <div class="container">
+        <h2 class="text-center mb-5" style="color: #00e6d0;">Finansman Seçenekleri</h2>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h4 class="option-title">Düşük Faiz</h4>
+                    <p class="option-text">SOFT araçları için özel düşük faiz oranları ve uygun ödeme koşulları.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4 class="option-title">Hızlı Onay</h4>
+                    <p class="option-text">24 saat içinde finansman onayı ve hızlı kredi süreci.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="option-title">Güvenli İşlem</h4>
+                    <p class="option-text">Güvenli ve şeffaf finansman süreci ile güvenle araç sahibi olun.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('financingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const carPrice = parseFloat(document.getElementById('carPrice').value);
+    const downPayment = parseFloat(document.getElementById('downPayment').value);
+    const months = parseInt(document.getElementById('months').value);
+    const interestRate = parseFloat(document.getElementById('interestRate').value);
+    
+    const loanAmount = carPrice - downPayment;
+    const monthlyRate = interestRate / 100 / 12;
+    
+    let monthlyPayment = 0;
+    if (monthlyRate > 0) {
+        monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    } else {
+        monthlyPayment = loanAmount / months;
+    }
+    
+    const totalPayment = monthlyPayment * months;
+    const totalInterest = totalPayment - loanAmount;
+    
+    // Sonuçları göster
+    document.getElementById('loanAmount').textContent = '₺' + loanAmount.toLocaleString('tr-TR');
+    document.getElementById('monthlyPayment').textContent = '₺' + monthlyPayment.toLocaleString('tr-TR', {maximumFractionDigits: 0});
+    document.getElementById('totalInterest').textContent = '₺' + totalInterest.toLocaleString('tr-TR', {maximumFractionDigits: 0});
+    document.getElementById('totalPayment').textContent = '₺' + totalPayment.toLocaleString('tr-TR', {maximumFractionDigits: 0});
+    
+    document.getElementById('resultsSection').style.display = 'block';
+});
+
+// Sayfa yüklendiğinde hesapla
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('financingForm').dispatchEvent(new Event('submit'));
+});
+</script> 

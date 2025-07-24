@@ -1,0 +1,387 @@
+@model IEnumerable<object>
+@{
+    ViewData["Title"] = "Satış Noktaları - SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.dealerships-hero {
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 50%, #008f7a 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+}
+
+.dealerships-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.dealerships-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%23ffffff;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%23ffffff;stop-opacity:0"/></radialGradient></defs><circle cx="50" cy="50" r="30" fill="url(%23glow)"/><circle cx="150" cy="150" r="40" fill="url(%23glow)"/><circle cx="100" cy="100" r="25" fill="url(%23glow)"/></svg>');
+    opacity: 0.4;
+    animation: float 6s ease-in-out infinite;
+}
+
+@@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.dealerships-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.dealerships-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #ffffff, #f0f8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@@keyframes glow {
+    from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(0, 230, 208, 0.5); }
+}
+
+.dealerships-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-weight: 300;
+}
+
+.dealerships-features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.dealerships-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dealerships-feature:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.dealerships-feature i {
+    color: #00e6d0;
+    font-size: 1.2rem;
+}
+
+.dealership-card {
+    background: #23232b;
+    border: 1px solid #333;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.dealership-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 230, 208, 0.2);
+    border-color: #00e6d0;
+}
+
+.dealership-name {
+    color: #00e6d0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.dealership-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #b0b0b0;
+}
+
+.info-icon {
+    color: #00e6d0;
+    width: 20px;
+}
+
+.dealership-services {
+    margin-bottom: 1.5rem;
+}
+
+.services-title {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.services-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.service-tag {
+    background: rgba(0, 230, 208, 0.1);
+    color: #00e6d0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 230, 208, 0.3);
+}
+
+.dealership-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn-primary {
+    background: #00e6d0;
+    color: #23232b;
+}
+
+.action-btn-primary:hover {
+    background: #00b3a0;
+    color: #23232b;
+}
+
+.action-btn-outline {
+    background: transparent;
+    color: #00e6d0;
+    border: 2px solid #00e6d0;
+}
+
+.action-btn-outline:hover {
+    background: #00e6d0;
+    color: #23232b;
+}
+
+.map-section {
+    background: #18181f;
+    padding: 3rem 0;
+    margin-top: 3rem;
+}
+
+.map-container {
+    background: #23232b;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.map-placeholder {
+    background: #18181f;
+    border: 2px dashed #333;
+    border-radius: 0.5rem;
+    padding: 4rem 2rem;
+    color: #b0b0b0;
+}
+
+.map-icon {
+    font-size: 4rem;
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+
+@@media (max-width: 768px) {
+    .dealerships-title {
+        font-size: 2.5rem;
+    }
+    
+    .dealerships-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .dealerships-features {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .dealership-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .dealership-actions {
+        flex-direction: column;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="dealerships-hero">
+    <div class="container">
+        <div class="dealerships-hero-content">
+            <h1 class="dealerships-title">Satış Noktaları</h1>
+            <p class="dealerships-subtitle">Size en yakın SOFT satış noktasını bulun</p>
+            <div class="dealerships-features">
+                <div class="dealerships-feature">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>En Yakın Noktaya Ulaşın</span>
+                </div>
+                <div class="dealerships-feature">
+                    <i class="fas fa-phone"></i>
+                    <span>24/7 Destek</span>
+                </div>
+                <div class="dealerships-feature">
+                    <i class="fas fa-truck"></i>
+                    <span>Hızlı Teslimat</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dealerships List -->
+<section class="container py-5">
+    <div class="row">
+        @foreach (dynamic dealership in Model)
+        {
+            <div class="col-lg-6">
+                <div class="dealership-card">
+                    <h3 class="dealership-name">@dealership.name</h3>
+                    
+                    <div class="dealership-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt info-icon"></i>
+                            <span>@dealership.address</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-phone info-icon"></i>
+                            <span>@dealership.phone</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-envelope info-icon"></i>
+                            <span>@dealership.email</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-clock info-icon"></i>
+                            <span>@dealership.hours</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dealership-services">
+                        <div class="services-title">Sunulan Hizmetler:</div>
+                        <div class="services-list">
+                            @foreach (string service in dealership.services)
+                            {
+                                <span class="service-tag">@service</span>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="dealership-actions">
+                        <a href="tel:@dealership.phone" class="action-btn action-btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Ara
+                        </a>
+                        <a href="mailto:@dealership.email" class="action-btn action-btn-outline">
+                            <i class="fas fa-envelope"></i>
+                            E-posta
+                        </a>
+                        <a href="#" class="action-btn action-btn-outline" onclick="getDirections('@dealership.address')">
+                            <i class="fas fa-directions"></i>
+                            Yol Tarifi
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section">
+    <div class="container">
+        <h2 class="text-center mb-5" style="color: #00e6d0;">Harita</h2>
+        
+        <div class="map-container">
+            <div class="map-placeholder">
+                <div class="map-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h4>İnteraktif Harita</h4>
+                <p>Burada Google Maps entegrasyonu ile interaktif harita gösterilecek</p>
+                <p>Satış noktalarının konumları ve yol tarifleri</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function getDirections(address) {
+    // Google Maps yol tarifi açma
+    const encodedAddress = encodeURIComponent(address);
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`, '_blank');
+}
+
+// Telefon numaralarını tıklanabilir yap
+document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        // Mobil cihazlarda telefon uygulamasını açar
+        if (!/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            e.preventDefault();
+            alert('Telefon numarası: ' + this.href.replace('tel:', ''));
+        }
+    });
+});
+</script> 

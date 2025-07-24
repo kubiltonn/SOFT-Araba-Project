@@ -1,0 +1,130 @@
+@using anaproject.Models;
+@model List<Cars.Car>
+@{
+    ViewData["Title"] = "Tüm Modeller";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions {
+    public string GetDiscoverUrl(Cars.Car car)
+    {
+        // Önce CarTur'a göre kontrol
+        var urlByTur = car.CarTur switch
+        {
+            "SUV" => Url.Action("Discover", "SUV", new { id = car.ID }),
+            "Sedan" => Url.Action("Discover", "Sedan", new { id = car.ID }),
+            "Coupe" => Url.Action("Discover", "Coupe", new { id = car.ID }),
+            "GTX" => Url.Action("Discover", "GTX", new { id = car.ID }),
+            "Van" => Url.Action("Discover", "Van", new { id = car.ID }),
+            "Motorcycle" => Url.Action("Discover", "Moto", new { id = car.ID }),
+            "Off-Road" => Url.Action("Discover", "OffRoad", new { id = car.ID }),
+            "Taxi" => Url.Action("Discover", "Public", new { id = car.ID }),
+            "Otobus" => Url.Action("Discover", "Public", new { id = car.ID }),
+            "Collection" => Url.Action("Discover", "Collection", new { id = car.ID }),
+            // Özel modeller için yönlendirmeler
+            "SOFT CITY-ZIP" => Url.Action("Discover", "Sedan", new { id = car.ID }),
+            "SOFT CROSS" => Url.Action("Discover", "SUV", new { id = car.ID }),
+            "SOFT BREEZE" => Url.Action("Discover", "Coupe", new { id = car.ID }),
+            "SOFT TERRA" => Url.Action("Discover", "OffRoad", new { id = car.ID }),
+            "SOFT KARGO" => Url.Action("Discover", "Van", new { id = car.ID }),
+            _ => null
+        };
+
+        // Eğer CarTur ile bulunamazsa, CarAdi'ne göre kontrol et
+        if (urlByTur != null)
+            return urlByTur;
+
+        return car.CarAdi switch
+        {
+            "SOFT CITY-ZIP" => Url.Action("Discover", "Sedan", new { id = car.ID }),
+            "SOFT CROSS" => Url.Action("Discover", "SUV", new { id = car.ID }),
+            "SOFT BREEZE" => Url.Action("Discover", "Coupe", new { id = car.ID }),
+            "SOFT TERRA" => Url.Action("Discover", "OffRoad", new { id = car.ID }),
+            "SOFT KARGO" => Url.Action("Discover", "Van", new { id = car.ID }),
+            _ => Url.Action("Discover", "SUV", new { id = car.ID }) // Varsayılan olarak SUV
+        };
+    }
+
+    public string GetButtonClass(Cars.Car car)
+    {
+        // Önce CarTur'a göre kontrol
+        var classByTur = car.CarTur switch
+        {
+            "SUV" => "btn-outline-info",
+            "Sedan" => "btn-outline-success",
+            "Coupe" => "btn-outline-warning",
+            "GTX" => "btn-outline-danger",
+            "Van" => "btn-outline-secondary",
+            "Motorcycle" => "btn-outline-primary",
+            "Off-Road" => "btn-outline-light",
+            "Taxi" => "btn-outline-info",
+            "Otobus" => "btn-outline-success",
+            "Collection" => "btn-outline-warning",
+            // Özel modeller için renkler
+            "SOFT CITY-ZIP" => "btn-outline-success", // Sedan rengi
+            "SOFT CROSS" => "btn-outline-info", // SUV rengi
+            "SOFT BREEZE" => "btn-outline-warning", // Coupe rengi
+            "SOFT TERRA" => "btn-outline-light", // Off-Road rengi
+            "SOFT KARGO" => "btn-outline-secondary", // Van rengi
+            _ => null
+        };
+
+        // Eğer CarTur ile bulunamazsa, CarAdi'ne göre kontrol et
+        if (classByTur != null)
+            return classByTur;
+
+        return car.CarAdi switch
+        {
+            "SOFT CITY-ZIP" => "btn-outline-success", // Sedan rengi
+            "SOFT CROSS" => "btn-outline-info", // SUV rengi
+            "SOFT BREEZE" => "btn-outline-warning", // Coupe rengi
+            "SOFT TERRA" => "btn-outline-light", // Off-Road rengi
+            "SOFT KARGO" => "btn-outline-secondary", // Van rengi
+            _ => "btn-outline-info"
+        };
+    }
+}
+
+<div class="container py-4">
+    <h1 class="mb-4 text-center" style="color:#fff;" data-aos="fade-down">Tüm Modeller</h1>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        @foreach (var car in Model)
+        {
+            <div class="col d-flex align-items-stretch">
+                <div class="card audi-card shadow-sm mb-0">
+                    <img src="@(string.IsNullOrEmpty(car.CarImage) ? "/img/softSUV.jpeg" : car.CarImage)" class="card-img-top" alt="@car.CarAdi" style="height:220px;object-fit:cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" style="font-weight:bold; color:#fff;">@car.CarAdi</h5>
+                        <p class="card-text mb-1" style="color:#d0d0d0;">@car.CarModel (@car.CarYil)</p>
+                        <p class="card-text flex-grow-1" style="color:#d0d0d0;">Kategori: @(car.Category != null ? car.Category.CategoryName : "-")</p>
+                        <a href="@GetDiscoverUrl(car)" class="btn @GetButtonClass(car) mt-auto detail-btn">
+                            Detay
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <nav aria-label="Model sayfalama" class="mt-4">
+        <ul class="pagination justify-content-center">
+            @if ((int)ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewBag.CurrentPage - 1 })">&laquo;</a>
+                </li>
+            }
+            @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == (int)ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            @if ((int)ViewBag.CurrentPage < (int)ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewBag.CurrentPage + 1 })">&raquo;</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div> 

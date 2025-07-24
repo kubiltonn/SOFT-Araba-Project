@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Content Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Page\" />
+    <None Remove="Views\SUV\" />
+    <None Remove="Data\" />
+    <None Remove="Views\Sedan\" />
+    <None Remove="Views\Coupe\" />
+    <None Remove="Views\GTX\" />
+    <None Remove="Views\Van\" />
+    <None Remove="Views\Moto\" />
+    <None Remove="Views\OffRoad\" />
+    <None Remove="Views\Public\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Page\" />
+    <Folder Include="Views\SUV\" />
+    <Folder Include="Views\Sedan\" />
+    <Folder Include="Views\Coupe\" />
+    <Folder Include="Views\GTX\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\img\" />
+    <Content Remove="wwwroot\videos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.19" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.19">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.19">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.19" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\anaproject.Data\anaproject.Data.csproj" />
+    <ProjectReference Include="..\anaproject.Models\anaproject.Models.csproj" />
+  </ItemGroup>
+</Project>

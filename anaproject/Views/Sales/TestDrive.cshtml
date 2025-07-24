@@ -1,0 +1,415 @@
+@{
+    ViewData["Title"] = "Test Sürüşü - SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.testdrive-hero {
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 50%, #008f7a 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+}
+
+.testdrive-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.testdrive-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%23ffffff;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%23ffffff;stop-opacity:0"/></radialGradient></defs><circle cx="50" cy="50" r="30" fill="url(%23glow)"/><circle cx="150" cy="150" r="40" fill="url(%23glow)"/><circle cx="100" cy="100" r="25" fill="url(%23glow)"/></svg>');
+    opacity: 0.4;
+    animation: float 6s ease-in-out infinite;
+}
+
+@@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.testdrive-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.testdrive-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #ffffff, #f0f8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@@keyframes glow {
+    from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(0, 230, 208, 0.5); }
+}
+
+.testdrive-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-weight: 300;
+}
+
+.testdrive-features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.testdrive-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.testdrive-feature:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.testdrive-feature i {
+    color: #00e6d0;
+    font-size: 1.2rem;
+}
+
+.testdrive-form {
+    background: #23232b;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    color: #00e6d0;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    background: #18181f;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #00e6d0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 230, 208, 0.25);
+    outline: none;
+}
+
+.submit-btn {
+    background: #00e6d0;
+    color: #23232b;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background: #00b3a0;
+    transform: translateY(-2px);
+}
+
+.benefits-section {
+    background: #18181f;
+    padding: 3rem 0;
+    margin-top: 3rem;
+}
+
+.benefit-card {
+    text-align: center;
+    padding: 2rem;
+    background: #23232b;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    border-color: #00e6d0;
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+
+.benefit-title {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.benefit-text {
+    color: #b0b0b0;
+    line-height: 1.6;
+}
+
+@@media (max-width: 768px) {
+    .testdrive-title {
+        font-size: 2.5rem;
+    }
+    
+    .testdrive-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .testdrive-features {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="testdrive-hero">
+    <div class="container">
+        <div class="testdrive-hero-content">
+            <h1 class="testdrive-title">Test Sürüşü</h1>
+            <p class="testdrive-subtitle">SOFT araçlarını deneyimleyin ve geleceği keşfedin</p>
+            <div class="testdrive-features">
+                <div class="testdrive-feature">
+                    <i class="fas fa-car"></i>
+                    <span>Ücretsiz Deneyim</span>
+                </div>
+                <div class="testdrive-feature">
+                    <i class="fas fa-clock"></i>
+                    <span>Esnek Program</span>
+                </div>
+                <div class="testdrive-feature">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Uzman Danışmanlık</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Test Drive Form -->
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="testdrive-form">
+                <h3 class="text-center mb-4" style="color: #00e6d0;">Test Sürüşü Randevusu</h3>
+                
+                <form id="testDriveForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Adınız *</label>
+                                <input type="text" class="form-control" name="Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Soyadınız *</label>
+                                <input type="text" class="form-control" name="Surname" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">E-posta *</label>
+                                <input type="email" class="form-control" name="Email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Telefon *</label>
+                                <input type="tel" class="form-control" name="Phone" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Test Sürüşü Yapmak İstediğiniz Model *</label>
+                                <select class="form-control" name="CarModel" required>
+                                    <option value="">Model Seçin</option>
+                                    <option value="SOFT GTX">SOFT GTX</option>
+                                    <option value="SOFT AERIS">SOFT AERIS</option>
+                                    <option value="SOFT LUMEN">SOFT LUMEN</option>
+                                    <option value="SOFT VANTA">SOFT VANTA</option>
+                                    <option value="SOFT NOMAD">SOFT NOMAD</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Tercih Ettiğiniz Satış Noktası *</label>
+                                <select class="form-control" name="Dealership" required>
+                                    <option value="">Satış Noktası Seçin</option>
+                                    <option value="SOFT İstanbul Merkez">SOFT İstanbul Merkez</option>
+                                    <option value="SOFT Ankara">SOFT Ankara</option>
+                                    <option value="SOFT İzmir">SOFT İzmir</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Tercih Ettiğiniz Tarih *</label>
+                                <input type="date" class="form-control" name="PreferredDate" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Tercih Ettiğiniz Saat *</label>
+                                <select class="form-control" name="PreferredTime" required>
+                                    <option value="">Saat Seçin</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ek Notlar</label>
+                        <textarea class="form-control" name="Notes" rows="3" placeholder="Özel istekleriniz veya notlarınız..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-car me-2"></i>Test Sürüşü Randevusu Al
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="benefits-section">
+    <div class="container">
+        <h2 class="text-center mb-5" style="color: #00e6d0;">Test Sürüşü Avantajları</h2>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h4 class="benefit-title">Ücretsiz Deneyim</h4>
+                    <p class="benefit-text">SOFT araçlarını tamamen ücretsiz olarak deneyimleyin ve performansını test edin.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4 class="benefit-title">Uzman Danışmanlık</h4>
+                    <p class="benefit-text">Deneyimli satış danışmanlarımız size araç hakkında detaylı bilgi verecek.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4 class="benefit-title">Esnek Program</h4>
+                    <p class="benefit-text">Size en uygun zamanda test sürüşü randevusu alın ve planınıza göre ayarlayın.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('testDriveForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get('Name') + ' ' + formData.get('Surname'),
+        email: formData.get('Email'),
+        phone: formData.get('Phone'),
+        carModel: formData.get('CarModel'),
+        dealership: formData.get('Dealership'),
+        preferredDate: formData.get('PreferredDate'),
+        preferredTime: formData.get('PreferredTime')
+    };
+    
+    fetch('@Url.Action("RequestTestDrive", "Sales")', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Test sürüşü talebiniz alındı! En kısa sürede size ulaşacağız.');
+        this.reset();
+    })
+    .catch(error => {
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    });
+});
+</script> 

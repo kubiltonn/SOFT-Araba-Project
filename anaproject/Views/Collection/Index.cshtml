@@ -1,0 +1,314 @@
+@model IEnumerable<anaproject.Models.Cars.Car>
+@{
+    ViewData["Title"] = "SOFT Koleksiyon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.collection-hero {
+    background: linear-gradient(135deg, #18181f 0%, #23232b 100%);
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 4rem 0;
+    width: 100%;
+}
+
+.collection-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2300e6d0" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.collection-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.collection-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(0, 230, 208, 0.3);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    line-height: 1.2;
+    width: 100%;
+}
+
+.collection-subtitle {
+    font-size: 1.25rem;
+    color: #e0f7f4;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.car-card {
+    background: #23232b;
+    border: 1px solid #00e6d0;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.car-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #00e6d0, #00b3a0);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover::before {
+    transform: scaleX(1);
+}
+
+.car-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 230, 208, 0.2);
+    border-color: #00b3a0;
+}
+
+.car-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover .car-image {
+    transform: scale(1.05);
+}
+
+.car-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #00e6d0;
+    margin-bottom: 0.5rem;
+}
+
+.car-model {
+    font-size: 1.1rem;
+    color: #b0b0b0;
+    margin-bottom: 1rem;
+}
+
+.car-specs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.car-spec {
+    text-align: center;
+    flex: 1;
+    min-width: 80px;
+}
+
+.car-spec-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #00e6d0;
+    display: block;
+}
+
+.car-spec-label {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.car-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00e6d0;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.car-description {
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.discover-btn {
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    border: none;
+    color: #23232b;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.discover-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 230, 208, 0.3);
+    color: #23232b;
+    text-decoration: none;
+}
+
+.no-cars {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #e0f7f4;
+}
+
+.no-cars-icon {
+    font-size: 4rem;
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+
+@@media (max-width: 768px) {
+    .collection-title {
+        font-size: 2.5rem;
+        line-height: 1.1;
+    }
+    
+    .collection-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .collection-hero {
+        min-height: 50vh;
+        padding: 3rem 0;
+    }
+    
+    .collection-hero-content {
+        padding: 0 1rem;
+    }
+    
+    .car-specs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .car-spec {
+        min-width: auto;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="collection-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="collection-hero-content">
+                    <h1 class="collection-title">SOFT Koleksiyon</h1>
+                    <p class="collection-subtitle">
+                        Özel tasarım ve sınırlı üretim SOFT modellerini keşfedin. Her biri benzersiz hikayesi olan koleksiyon arabalarımız, elektrikli mobilite sanatının en üst seviyesini temsil ediyor.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Collection Cars -->
+<section class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <div class="row g-4">
+            @foreach (var car in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="car-card">
+                        <img src="@car.CarImage" alt="@car.CarAdi" class="car-image">
+                        <h3 class="car-title">@car.CarAdi</h3>
+                        <p class="car-model">@car.CarModel - @car.CarYil</p>
+                        
+                        <div class="car-specs">
+                            <div class="car-spec">
+                                <span class="car-spec-value">@car.CarBeygir</span>
+                                <span class="car-spec-label">HP</span>
+                            </div>
+                            <div class="car-spec">
+                                <span class="car-spec-value">@car.CarKW</span>
+                                <span class="car-spec-label">KW</span>
+                            </div>
+                            <div class="car-spec">
+                                <span class="car-spec-value">@car.CarMenzil</span>
+                                <span class="car-spec-label">KM</span>
+                            </div>
+                            <div class="car-spec">
+                                <span class="car-spec-value">@car.CarSifirYuz</span>
+                                <span class="car-spec-label">0-100</span>
+                            </div>
+                        </div>
+                        
+                        <div class="car-price">@car.CarFiyat.ToString("C")</div>
+                        
+                        @if (!string.IsNullOrEmpty(car.CarDescription))
+                        {
+                            <p class="car-description">@car.CarDescription</p>
+                        }
+                        
+                        <a href="@Url.Action("Discover", "Collection", new { id = car.ID })" class="discover-btn">
+                            <i class="fas fa-search me-2"></i>Keşfet
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-cars">
+            <div class="no-cars-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <h3>Henüz Koleksiyon Arabası Bulunmuyor</h3>
+            <p>Yakında özel koleksiyon modellerimiz eklenecek. Takipte kalın!</p>
+            <a href="@Url.Action("Index", "AllModels")" class="btn btn-outline-info mt-3">
+                <i class="fas fa-arrow-left me-2"></i>Tüm Modellere Dön
+            </a>
+        </div>
+    }
+</section> 

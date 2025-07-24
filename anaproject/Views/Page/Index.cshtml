@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "SOFT Türkiye";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var carList = Model ?? new List<anaproject.Models.Cars.Car>();
+}
+
+<!-- HERO BANNER -->
+<section class="audi-hero">
+    <img class="audi-hero-bg" src="/img/softGT.png" alt="SOFT GT" />
+    <div class="audi-hero-content">
+        <h1 data-aos="fade-down">%100 SOFT GTX %100 elektrikli.</h1>
+        <p>
+            "Performans odaklı, %100 elektrikli Gran Turismo deneyimi: SOFT GTX ile tanışın."
+        </p>
+        <div class="audi-hero-btns">
+                   <a href="/GTX/Discover/14" class="audi-btn audi-btn-outline" data-bs-toggle="tooltip" title="Kendi aracını yapılandır">Keşfedin</a>
+                               <a href="@Url.Action("Index", "Configurator")" class="audi-btn" data-bs-toggle="tooltip" title="Aracı keşfet">Araç oluşturun</a>
+                   <a href="@Url.Action("Index", "Collection")" class="audi-btn" style="background: linear-gradient(135deg, #00e6d0, #00b3a0); border: none;" data-bs-toggle="tooltip" title="Özel koleksiyon modelleri">
+                       <i class="fas fa-star me-2"></i>Koleksiyon
+                   </a>
+        </div>
+    </div>
+</section>
+
+<!-- ARAYA EKLENECEK VİDEO -->
+<div class="container my-2 py-1">
+    <div class="row align-items-start">
+        <div class="col-12">
+            <div class="modern-video-wrapper ratio ratio-16x9">
+                <video class="w-100 modern-video" controls>
+                    <source src="/videos/softmain2.mp4" type="video/mp4">
+                </video>
+                <div class="modern-video-overlay" style="display:none;">
+                    <button class="modern-play-btn" aria-label="Oynat">
+                        <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="30" fill="rgba(0,230,208,0.85)"/><polygon points="24,18 46,30 24,42" fill="#fff"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ANA KATEGORİLER -->
+<main class="audi-main">
+    <section class="audi-cards">
+        <div class="audi-card">
+            <img src="/img/softSUV.jpeg" alt="SOFT SUV" />
+            <div class="audi-card-content">
+                <h2>Sınırsız konfor SUV deneyimi. SOFT AERIS</h2>
+                <p>"Yüksek performanslı, tamamen elektrikli SUV: hem şehirde hem doğada sessiz bir güç."</p>
+                <div class="audi-card-btns">
+                    <a href="@Url.Action("Index", "SUV")" class="audi-btn" data-bs-toggle="tooltip" title="Aracı keşfet">Keşfedin</a>
+                    <a href="@Url.Action("Index", "Configurator")" class="audi-btn audi-btn-outline" data-bs-toggle="tooltip" title="Kendi aracını yapılandır">Araç oluşturun</a>
+                </div>
+            </div>
+        </div>
+        <div class="audi-card">
+            <img src="/img/softSEDAN.jpeg" alt="SOFT LUMEN" />
+            <div class="audi-card-content">
+                <h2>Beklentileri yükseltme zamanı. SOFT LUMEN</h2>
+                <p>"Zekâ ile tasarımın birleştiği, geleceğin aydınlık yüzü olan elektrikli sedan."</p>
+                <div class="audi-card-btns">
+                    <a href="@Url.Action("Index", "Sedan")" class="audi-btn" data-bs-toggle="tooltip" title="Aracı keşfet">Keşfedin</a>
+                    <a href="@Url.Action("Index", "Configurator")" class="audi-btn audi-btn-outline" data-bs-toggle="tooltip" title="Kendi aracını yapılandır">Araç oluşturun</a>
+                </div>
+            </div>
+        </div>
+        <div class="audi-card">
+            <img src="/img/softVAN.jpeg" alt="SOFT VAN" />
+            <div class="audi-card-content">
+                <h2>Evinle beraber gezmeye hazır ol. SOFT NOMAD</h2>
+                <p>"Özgürlüğü yeniden tanımlayan akıllı camper van: her yolculuk bir ev, her durak bir manzara."</p>
+                <div class="audi-card-btns">
+                    <a href="@Url.Action("Index", "Van")" class="audi-btn" data-bs-toggle="tooltip" title="Model hakkında bilgi al">Bilgi alın</a>
+                    <a href="@Url.Action("Index", "Configurator")" class="audi-btn audi-btn-outline" data-bs-toggle="tooltip" title="Kendi aracını yapılandır">Araç oluşturun</a>
+                </div>
+            </div>
+        </div>
+        <div class="audi-card vanta-card">
+            <div class="vanta-img-wrapper">
+                <img src="/img/softCOUPE.jpeg" alt="SOFT Coupe" />
+            </div>
+            <div class="audi-card-content">
+                <h2>Üst Düzey Lüks: SOFT VANTA</h2>
+                <p>"Şık çizgileri ve ani hızlanmasıyla, her bakışı üzerine çeken elektrikli coupe."</p>
+                <div class="audi-card-btns">
+                    <a href="@Url.Action("Index", "Coupe")" class="audi-btn" data-bs-toggle="tooltip" title="Aracı keşfet">Keşfedin</a>
+                    <a href="@Url.Action("Index", "Configurator")" class="audi-btn audi-btn-outline" data-bs-toggle="tooltip" title="Kendi aracını yapılandır">Araç oluşturun</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,482 @@
+@model IEnumerable<anaproject.Models.Cars.Car>
+@{
+    ViewData["Title"] = "SOFT Satış - Araç Satış";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.sales-hero {
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+}
+
+.sales-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.sales-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.sales-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #ffffff, #f0f8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sales-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.quick-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.quick-action-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 1.2rem 2.5rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.quick-action-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.car-card {
+    background: #23232b;
+    border: 1px solid #333;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.car-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #00e6d0, #00b3a0);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover::before {
+    transform: scaleX(1);
+}
+
+.car-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 230, 208, 0.3);
+    border-color: #00e6d0;
+}
+
+.car-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover .car-image {
+    transform: scale(1.05);
+}
+
+.car-content {
+    padding: 1.5rem;
+}
+
+.car-title {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.car-model {
+    color: #00e6d0;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.car-specs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.car-spec {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #b0b0b0;
+    font-size: 0.9rem;
+}
+
+.car-price {
+    font-size: 1.8rem;
+    color: #00e6d0;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.car-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.car-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.car-btn-primary {
+    background: #00e6d0;
+    color: #23232b;
+}
+
+.car-btn-primary:hover {
+    background: #00b3a0;
+    color: #23232b;
+    transform: translateY(-2px);
+}
+
+.car-btn-outline {
+    background: transparent;
+    color: #00e6d0;
+    border: 2px solid #00e6d0;
+}
+
+.car-btn-outline:hover {
+    background: #00e6d0;
+    color: #23232b;
+    transform: translateY(-2px);
+}
+
+.filter-section {
+    background: #18181f;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.filter-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: #23232b;
+    color: #b0b0b0;
+    border: 1px solid #333;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+    background: #00e6d0;
+    color: #23232b;
+    border-color: #00e6d0;
+}
+
+.filter-btn:hover {
+    background: #00e6d0;
+    color: #23232b;
+}
+
+.promotion-banner {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+}
+
+.promotion-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+.promotion-content {
+    position: relative;
+    z-index: 2;
+}
+
+.promotion-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.promotion-text {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.promotion-btn {
+    background: white;
+    color: #ff6b6b;
+    padding: 1.2rem 2.5rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.promotion-btn:hover {
+    background: #f8f9fa;
+    color: #ff6b6b;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+@@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@@media (max-width: 768px) {
+    .sales-title {
+        font-size: 2.5rem;
+    }
+    
+    .sales-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .car-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .car-actions {
+        flex-direction: column;
+    }
+    
+    .promotion-title {
+        font-size: 2rem;
+    }
+    
+    .promotion-text {
+        font-size: 1.1rem;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="sales-hero">
+    <div class="container">
+        <div class="sales-hero-content">
+            <h1 class="sales-title">SOFT Satış</h1>
+            <p class="sales-subtitle">Hayalinizdeki elektrikli aracı keşfedin ve satın alın</p>
+            <div class="quick-actions">
+                <a href="@Url.Action("TestDrive", "Sales")" class="quick-action-btn">
+                    <i class="fas fa-car me-2"></i>Test Sürüşü
+                </a>
+                <a href="@Url.Action("Financing", "Sales")" class="quick-action-btn">
+                    <i class="fas fa-calculator me-2"></i>Finansman
+                </a>
+                <a href="@Url.Action("Dealerships", "Sales")" class="quick-action-btn">
+                    <i class="fas fa-map-marker-alt me-2"></i>Satış Noktaları
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Promotion Banner -->
+<section class="container">
+    <div class="promotion-banner">
+        <div class="promotion-content">
+            <h2 class="promotion-title">🎉 Özel Kampanya!</h2>
+            <p class="promotion-text">SOFT GTX modellerinde %10 indirim + ücretsiz şarj istasyonu kurulumu</p>
+            <a href="@Url.Action("Index", "GTX")" class="promotion-btn">Kampanyayı İncele</a>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Section -->
+<section class="filter-section">
+    <div class="container">
+        <div class="filter-container">
+            <button class="filter-btn active" data-category="all">Tümü</button>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <button class="filter-btn" data-category="@category.CategoryId">@category.CategoryName</button>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Car Grid -->
+<section class="container py-5">
+    <div class="car-grid">
+        @foreach (var car in Model)
+        {
+            <div class="car-card" data-category="@car.CategoryId">
+                <img src="@car.CarImage" alt="@car.CarAdi" class="car-image">
+                <div class="car-content">
+                    <h3 class="car-title">@car.CarAdi</h3>
+                    <p class="car-model">@car.CarModel - @car.CarYil</p>
+                    
+                    <div class="car-specs">
+                        <div class="car-spec">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>@car.CarBeygir HP</span>
+                        </div>
+                        <div class="car-spec">
+                            <i class="fas fa-battery-half"></i>
+                            <span>@car.CarMenzil km</span>
+                        </div>
+                        <div class="car-spec">
+                            <i class="fas fa-bolt"></i>
+                            <span>@car.CarKW kW</span>
+                        </div>
+                        <div class="car-spec">
+                            <i class="fas fa-stopwatch"></i>
+                            <span>@car.CarSifirYuz sn</span>
+                        </div>
+                    </div>
+                    
+                    <div class="car-price">@car.CarFiyat.ToString("C")</div>
+                    
+                    <div class="car-actions">
+                        <a href="@Url.Action("Discover", car.CarTur)" class="car-btn car-btn-primary">
+                            <i class="fas fa-eye me-2"></i>İncele
+                        </a>
+                        <a href="#" class="car-btn car-btn-outline" onclick="requestQuote('@car.CarAdi')">
+                            <i class="fas fa-tag me-2"></i>Teklif Al
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<script>
+// Filtreleme işlevi
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Aktif buton stilini güncelle
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.dataset.category;
+        const cars = document.querySelectorAll('.car-card');
+        
+        cars.forEach(car => {
+            if (category === 'all' || car.dataset.category === category) {
+                car.style.display = 'block';
+            } else {
+                car.style.display = 'none';
+            }
+        });
+    });
+});
+
+// Fiyat teklifi talebi
+function requestQuote(carModel) {
+    const name = prompt('Adınız:');
+    const email = prompt('E-posta adresiniz:');
+    const phone = prompt('Telefon numaranız:');
+    
+    if (name && email && phone) {
+        const quoteData = {
+            name: name,
+            email: email,
+            phone: phone,
+            carModel: carModel
+        };
+        
+        fetch('@Url.Action("RequestQuote", "Sales")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(quoteData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Fiyat teklifiniz hazırlanıyor. En kısa sürede size ulaşacağız.');
+        })
+        .catch(error => {
+            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+        });
+    }
+}
+</script> 

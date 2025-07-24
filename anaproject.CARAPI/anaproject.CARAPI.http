@@ -1,0 +1,6 @@
+@anaproject.CARAPI_HostAddress = http://localhost:5002
+
+GET {{anaproject.CARAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

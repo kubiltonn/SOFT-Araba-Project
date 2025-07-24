@@ -1,0 +1,66 @@
+﻿@model IEnumerable<anaproject.Models.Cars.Car>
+
+@{
+    ViewData["Title"] = "SOFT Moto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="audi-suv-hero text-center py-5 mb-4">
+    <h1 class="display-4 font-weight-bold" data-aos="fade-down">SOFT MOTO Modelleri</h1>
+    <p class="lead mb-0">Şehir ritmine uyum sağlayan, sessiz ama güçlü bir elektrikli motosiklet: SOFT MOTO ile tanışın.</p>
+</div>
+
+<!-- Kartların üstüne video alanı -->
+<div class="container mb-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="ratio ratio-16x9 modern-video-wrapper">
+                    <video class="w-200 modern-video" controls>
+                        <source src="/videos/softMOTO.mp4" type="video/mp4">
+                    </video>
+                    <div class="modern-video-overlay" style="display:none;">
+                        <button class="modern-play-btn" aria-label="Oynat">
+                            <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="30" fill="rgba(0,230,208,0.85)"/><polygon points="24,18 46,30 24,42" fill="#fff"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+        @foreach (var car in Model)
+        {
+            <div class="col d-flex align-items-stretch">
+                <div class="card audi-card shadow-sm mb-0">
+                    <img src="@(string.IsNullOrEmpty(car.CarImage) ? "/img/softSUV.jpeg" : car.CarImage)" class="card-img-top" alt="@car.CarAdi" style="height:220px;object-fit:cover;" data-aos="zoom-in">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" style="font-weight:bold; color:#fff;">@car.CarAdi</h5>
+                        <p class="card-text mb-2" style="color:#b0e6e0;">@car.CarModel</p>
+                        <p class="card-text flex-grow-1" style="color:#b0e6e0;">@car.CarTur</p>
+                        <a href="/MOTO/Discover/@car.ID" class="btn btn-outline-primary mt-auto">Detay</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+            <h2 class="mb-3" data-aos="fade-up">SOFT MOTO – Hızın Yeni Yüzü</h2>
+            <p>
+                SOFT MOTO, elektrikli mobilitenin çevik ve özgür hali. Kompakt yapısı, yüksek torku ve sessiz motoruyla şehir içi sürüşte hem performans hem de konfor sunar. Sadece ulaşmak için değil, hissetmek için tasarlandı.
+            </p>
+            <ul class="list-unstyled">
+                <li>• 45 kW elektrikli motor (yaklaşık 60 HP)</li>
+                <li>• 0–100 km/s: sadece 4.0 saniye</li>
+                <li>• 200 km'ye kadar menzil (şehir içi)</li>
+                <li>• Hafif alaşım gövde ve agresif tasarım çizgileri</li>
+                <li>• Dijital gösterge paneli ve akıllı bağlantı sistemi</li>
+            </ul>
+        </div>
+    </div>
+</div>

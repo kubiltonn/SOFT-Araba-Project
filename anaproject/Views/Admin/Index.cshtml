@@ -1,0 +1,294 @@
+@{
+    ViewData["Title"] = "Admin Panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.admin-title { color: #00e6d0; text-shadow: 0 1px 8px #00e6d077; }
+.admin-card { 
+    background: #23232b; 
+    border: 1px solid #00e6d0; 
+    border-radius: 1rem; 
+    transition: all 0.3s ease;
+    height: 100%;
+}
+.admin-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 25px rgba(0, 230, 208, 0.3);
+}
+.admin-icon {
+    font-size: 3rem;
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+.btn-admin {
+    background: linear-gradient(45deg, #00e6d0, #00b3a0);
+    border: none;
+    color: #23232b;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+.btn-admin:hover {
+    background: linear-gradient(45deg, #00b3a0, #00e6d0);
+    color: #23232b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 230, 208, 0.3);
+}
+
+/* İstatistik Kartları */
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 230, 208, 0.2);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 230, 208, 0.2);
+    border-color: rgba(0, 230, 208, 0.4);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00e6d0;
+    margin: 0;
+    line-height: 1;
+}
+
+.stat-label {
+    color: #e0f7f4;
+    margin: 0.25rem 0;
+    font-weight: 500;
+}
+
+.stat-time {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+/* Detaylı İstatistikler */
+.detail-stat {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 230, 208, 0.1);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-item-label {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+}
+
+.stat-item-value {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@@media (max-width: 768px) {
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .detail-stat {
+        margin-bottom: 1rem;
+    }
+}
+</style>
+
+<section class="container py-5">
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold admin-title mb-3">Admin Panel</h1>
+        <p class="lead text-light mb-4">SOFT sistem yönetimi</p>
+    </div>
+
+    <!-- Admin Menü -->
+    <div class="row g-4">
+        <!-- Servis Randevuları -->
+        <div class="col-lg-6 col-md-6">
+            <div class="admin-card p-4 text-center">
+                <div class="admin-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="text-light mb-3">Servis Randevuları</h3>
+                <p class="text-muted mb-4">Servis randevularını görüntüle, onayla veya reddet</p>
+                <a href="@Url.Action("ServiceAppointments", "Admin")" class="btn btn-admin">
+                    <i class="fas fa-arrow-right me-2"></i>Randevuları Yönet
+                </a>
+            </div>
+        </div>
+
+        <!-- SOFT Shop Ürün Yönetimi -->
+        <div class="col-lg-6 col-md-6">
+            <div class="admin-card p-4 text-center">
+                <div class="admin-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h3 class="text-light mb-3">SOFT Shop Ürün Yönetimi</h3>
+                <p class="text-muted mb-4">Ürünleri ekle, düzenle veya sil</p>
+                <a href="@Url.Action("Products", "Admin")" class="btn btn-admin">
+                    <i class="fas fa-arrow-right me-2"></i>Ürünleri Yönet
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- İstatistikler -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="admin-card p-4">
+                <h4 class="text-light mb-4">
+                    <i class="fas fa-chart-line me-2"></i>Hızlı İstatistikler
+                </h4>
+                <div class="row g-4">
+                    <!-- Bekleyen Randevular -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-number">12</h3>
+                                <p class="stat-label">Bekleyen Randevular</p>
+                                <small class="stat-time">Son güncelleme: @DateTime.Now.ToString("dd.MM.yyyy HH:mm")</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Aktif Ürünler -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-number">45</h3>
+                                <p class="stat-label">Aktif Ürünler</p>
+                                <small class="stat-time">SOFT Shop ürünleri</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Toplam Arabalar -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-number">28</h3>
+                                <p class="stat-label">Toplam Arabalar</p>
+                                <small class="stat-time">Tüm kategoriler</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Koleksiyon Arabaları -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-danger">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-number">5</h3>
+                                <p class="stat-label">Koleksiyon Arabaları</p>
+                                <small class="stat-time">Özel modeller</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detaylı İstatistikler -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="detail-stat">
+                            <h6 class="text-light mb-3">
+                                <i class="fas fa-calendar-check me-2"></i>Bu Ay
+                            </h6>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Yeni Randevular:</span>
+                                <span class="stat-item-value text-success">+8</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Tamamlanan:</span>
+                                <span class="stat-item-value text-info">15</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">İptal Edilen:</span>
+                                <span class="stat-item-value text-warning">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="detail-stat">
+                            <h6 class="text-light mb-3">
+                                <i class="fas fa-shopping-cart me-2"></i>SOFT Shop
+                            </h6>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Toplam Satış:</span>
+                                <span class="stat-item-value text-success">₺125,000</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">En Popüler:</span>
+                                <span class="stat-item-value text-info">SOFT T-Shirt</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Stok Durumu:</span>
+                                <span class="stat-item-value text-warning">%85</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

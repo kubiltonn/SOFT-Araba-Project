@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "SOFT Elektromobilite - Evde Şarj";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- HERO BANNER -->
+<section class="elektro-hero position-relative overflow-hidden py-5 mb-5" style="background: linear-gradient(120deg, #0d0d0d 60%, #00e6d0 100%); min-height: 260px;">
+    <div class="container position-relative z-2">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="display-4 fw-bold mb-3 text-white animate-fadein" style="text-shadow:0 2px 24px #000a; letter-spacing:1px;">Evde Şarj</h1>
+                <p class="lead text-white-50 mb-4 animate-slideup" style="max-width:700px; margin:auto;">
+                    Eviniz elektromobilite için hazır mı? SOFT şarj sistemleri ve akıllı eviniz ile elektrikli aracınızı birbirine bağlama hakkında daha fazla bilgiyi buradan edinin.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ŞARJ SİSTEMLERİ -->
+<section class="container pb-5">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+            <img src="/img/evdesarj.webp" alt="SOFT Şarj Sistemi" class="img-fluid rounded-4 shadow-lg" style="border: 2px solid #00e6d0;">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="fw-bold mb-3" style="color:#00e6d0;">SOFT Şarj Sistemi Kompakt</h2>
+            <p class="text-secondary mb-4">
+                Tamamen elektrikli veya hibrit SOFT modelleri içindir. Elektrikli aracınızı ister endüstriyel prizde, isterse ev prizinde, evde veya tatil evinde şarj edin: Modüler SOFT şarj sistemi size maksimum esneklik sağlar.
+            </p>
+            <div class="tech-details-table rounded-4 shadow-lg overflow-hidden">
+                <table class="table table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <th scope="row"><i class="bi bi-check-circle-fill text-primary me-2"></i>Uyumluluk</th>
+                            <td>SOFT’un tüm tam elektrikli ve hibrit araçları ile uyumludur.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-box-seam-fill text-primary me-2"></i>Teslimat kapsamı</th>
+                            <td>Bir araç bağlantı kablosu ve biri ev tipi fişli diğeri endüstriyel fişli olmak üzere iki şebeke bağlantı kablosu içeren bir kontrol ünitesi.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-speedometer2 text-primary me-2"></i>Şarj gücü</th>
+                            <td>SOFT modelleri için 11 kW'a kadar. Kontrol panelinde kullanıcı manuel olarak yüzde 100 ve yüzde 50 şarj gücü arasında geçiş yapabilir.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="bi bi-bar-chart-line-fill text-primary me-2"></i>Durum göstergesi</th>
+                            <td>Şarj sisteminin durumu ve şarj işlemi, kontrol ünitesindeki LED'ler aracılığıyla gösterilir.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SSS AKORDİYON -->
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2 class="fw-bold text-center mb-4" style="color:#00e6d0;">Sıkça Sorulan Sorular</h2>
+            <div class="accordion accordion-flush" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            AC veya DC ne anlama geliyor?
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            AC (Alternating Current) kısaltması alternatif akım, DC (Direct Current) kısaltması ise doğru akım anlamına gelmektedir. Elektrikli arabaları şarj etmek için hem alternatif akım hem de doğru akım kullanılabilir. Yüksek voltajlı bataryada yalnızca doğru akım depolanabildiğinden, alternatif akımın önce doğru akıma dönüştürülmesi gerekir. Bu nedenle e-araçlar, alternatif akımı (örneğin topraklı priz üzerinden) doğru akıma dönüştüren AC/DC dönüştürücü olarak adlandırılan bir dönüştürücüye ihtiyaç duyar.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Şarj sisteminin periyodik bakımı gerekli mi?
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            SOFT şarj sistemleri minimum bakım gerektirecek şekilde tasarlanmıştır. Ancak, güvenli ve verimli bir şarj deneyimi için yetkili servislerimizde periyodik kontrollerin yapılmasını öneririz. Bu kontroller, kablo ve bağlantıların durumu, yazılım güncellemeleri ve genel sistem sağlığını kapsar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ŞARJ İPUÇLARINA GİT -->
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <div class="elektro-info-card p-4 rounded-4 shadow-lg bg-dark text-white">
+                <div class="d-flex align-items-center justify-content-center mb-3">
+                    <span class="info-icon d-flex align-items-center justify-content-center me-3"><i class="bi bi-lightbulb display-5 text-warning"></i></span>
+                    <h3 class="fw-bold mb-0">Şarj İpuçları</h3>
+                </div>
+                <p class="mb-3">Şarj sürecini hızlandıran ve batarya ömrünü uzatan pratik öneriler.</p>
+                <a href="/Sarj/Ipuclari" class="btn btn-outline-info btn-lg elektro-btn">İpuçlarına Git</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .elektro-hero {
+        background: linear-gradient(120deg, #0d0d0d 60%, #00e6d0 100%);
+    }
+
+    .tech-details-table {
+        background: linear-gradient(120deg, #181820 60%, #23232b 100%);
+        box-shadow: 0 8px 32px rgba(0,230,208,0.18);
+        border: 1px solid #23232b;
+        border-radius: 1.5rem;
+        overflow: hidden;
+    }
+
+        .tech-details-table th, .tech-details-table td {
+            color: #f3f3f3 !important;
+            font-size: 1rem;
+            padding: 1rem 1.2rem;
+            vertical-align: middle;
+        }
+
+        .tech-details-table th {
+            font-weight: 700;
+            background: rgba(0,230,208,0.08);
+            border-right: 2px solid #101014;
+            color: #00e6d0 !important;
+            letter-spacing: 1px;
+            width: 200px; /* Sabit genişlik */
+        }
+
+        .tech-details-table tr:not(:last-child) td, .tech-details-table tr:not(:last-child) th {
+            border-bottom: 1px solid #23232b;
+        }
+
+    .accordion-item {
+        background-color: #181820;
+        border: 1px solid #23232b;
+        color: #f3f3f3;
+    }
+
+    .accordion-button {
+        background-color: #23232b;
+        color: #00e6d0;
+        font-weight: 600;
+    }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #00e6d0;
+            color: #181820;
+        }
+
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(0, 230, 208, 0.25);
+        }
+</style> 

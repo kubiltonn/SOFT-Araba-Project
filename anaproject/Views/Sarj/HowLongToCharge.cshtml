@@ -1,0 +1,175 @@
+@{
+    ViewData["Title"] = "Elektrikli Modellerin Şarj Süreleri | SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .audi-sarj-hero {
+        background: linear-gradient(120deg, #0d0d0d 60%, #00e6d0 100%);
+        padding: 48px 0 32px 0;
+        text-align: center;
+    }
+    .audi-sarj-hero h1 {
+        color: #fff;
+        font-weight: 800;
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 24px #00e6d0cc, 0 2px 24px #000a;
+    }
+    .audi-sarj-hero p {
+        color: #e0f7f4;
+        font-size: 1.15rem;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .audi-sarj-table-section {
+        background: #18181f;
+        padding: 40px 0 60px 0;
+    }
+    .audi-sarj-table-container {
+        background: rgba(35,35,43,0.7);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 48px 0 #00e6d055, 0 2px 16px #000a;
+        padding: 2.5rem 1.5rem;
+        margin-bottom: 2.5rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        backdrop-filter: blur(10px) saturate(1.3);
+    }
+    .audi-sarj-table-container h2 {
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+        letter-spacing: 0.5px;
+        text-align: center;
+        text-shadow: 0 1px 8px #00e6d077;
+    }
+    .audi-sarj-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 0.75rem;
+        background: transparent;
+    }
+    .audi-sarj-table th {
+        padding: 0.85rem 1rem;
+        text-align: left;
+        color: #00e6d0;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1.05rem;
+        border-bottom: 2px solid #00e6d0;
+    }
+    .audi-sarj-table td {
+        padding: 1.2rem 1rem;
+        color: #fff;
+        font-size: 1rem;
+        background: linear-gradient(135deg, rgba(35,35,43,0.85) 60%, rgba(0,230,208,0.15) 100%);
+        transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .audi-sarj-table tr {
+        box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+        border-radius: 0.75rem;
+        overflow:hidden;
+    }
+    .audi-sarj-table tr:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 32px #00e6d044, 0 4px 16px #000;
+    }
+    .audi-sarj-table tr:hover td {
+        background: linear-gradient(135deg, rgba(0,230,208,0.2) 0%, rgba(35,35,43,0.9) 100%);
+    }
+    .audi-sarj-table td:first-child {
+        border-top-left-radius: 0.75rem;
+        border-bottom-left-radius: 0.75rem;
+    }
+    .audi-sarj-table td:last-child {
+        border-top-right-radius: 0.75rem;
+        border-bottom-right-radius: 0.75rem;
+    }
+    .audi-sarj-table .model-name {
+        font-weight: 700;
+        color: #fff;
+        font-size: 1.1rem;
+    }
+    .audi-sarj-table .battery {
+        color: #00e6d0;
+        font-size: 0.97rem;
+        font-weight: 500;
+    }
+</style>
+
+<div class="audi-sarj-hero">
+    <h1>SOFT Elektrikli Modellerin Şarj Süreleri</h1>
+    <p>Aracınızı evde veya halka açık şarj istasyonlarında ne kadar sürede şarj edebileceğinizi aşağıdaki tablodan öğrenebilirsiniz. Tüm veriler örnektir.</p>
+</div>
+
+<section class="audi-sarj-table-section">
+    <div class="audi-sarj-table-container">
+        <h2>SOFT Elektrikli Modellerinin Şarj Süreleri</h2>
+        <div class="table-responsive">
+            <table class="audi-sarj-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>AC Şarjı (Ev Prizi / Hızlı Şarj)</th>
+                        <th>DC Hızlı Şarj</th>
+                        <th>Batarya Kapasitesi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="model-name">SOFT GTX</td>
+                        <td>11 kW: 8 saat<br>22 kW: 5 saat</td>
+                        <td>150 kW: 22 dakika</td>
+                        <td>93 kWh</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">SOFT SUV</td>
+                        <td>11 kW: 8 saat<br>22 kW: 5 saat</td>
+                        <td>150 kW: 28 dakika</td>
+                        <td>82 kWh</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">SOFT Sedan</td>
+                        <td>11 kW: 9 saat<br>22 kW: 5.5 saat</td>
+                        <td>150 kW: 25 dakika</td>
+                        <td>77 kWh</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">SOFT Coupe</td>
+                        <td>11 kW: 8.5 saat<br>22 kW: 5 saat</td>
+                        <td>150 kW: 24 dakika</td>
+                        <td>82 kWh</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">SOFT Van</td>
+                        <td>11 kW: 10 saat<br>22 kW: 6 saat</td>
+                        <td>100 kW: 40 dakika</td>
+                        <td>75 kWh</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">SOFT Moto</td>
+                        <td>3.7 kW: 4 saat</td>
+                        <td>22 kW: 30 dakika</td>
+                        <td>15 kWh</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">SOFT OffRoad</td>
+                        <td>11 kW: 12 saat<br>22 kW: 7 saat</td>
+                        <td>150 kW: 35 dakika</td>
+                        <td>100 kWh</td>
+                    </tr>
+                    <tr>
+                        <td class="model-name">SOFT Public</td>
+                        <td>11 kW: 12 saat<br>22 kW: 7 saat</td>
+                        <td>100 kW: 50 dakika</td>
+                        <td>120 kWh</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> 

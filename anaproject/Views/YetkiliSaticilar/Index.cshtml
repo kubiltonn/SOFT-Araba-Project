@@ -1,0 +1,174 @@
+@{
+    ViewData["Title"] = "Yetkili Satıcılar | SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container-fluid px-0">
+    <div class="row g-0" style="min-height: 80vh;">
+        <div class="col-lg-4 bg-dark text-light p-4 overflow-auto" style="max-height: 100vh;">
+            <h2 class="fw-bold mb-4 soft-section-title">Yetkili Satıcılar</h2>
+            <div class="dealer-list">
+                <div class="dealer mb-4" data-id="ito">
+                    <h5 class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>İstanbul Ticaret Odası</h5>
+                    <div class="small mb-1">Reşadiye Cd. 7-5, Hobyar, 34112 Fatih/İstanbul</div>
+                    <div class="mb-1">Tel: <a href="#" class="text-info">-</a></div>
+                    <div class="mb-1">
+                        <a href="https://maps.google.com/?q=41.017084,28.974241" target="_blank" class="btn btn-sm btn-info me-1 locate-btn" data-id="ito"><i class="bi bi-geo-alt"></i> Konum</a>
+                    </div>
+                    <div class="small">H.içi: 09:00 - 18:00<br/>Cmt: 09:00 - 14:00<br/>Pz: Kapalı</div>
+                </div>
+                <div class="dealer mb-4" data-id="mtal">
+                    <h5 class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>İstanbul Ticaret Odası Mesleki Ve Teknik Anadolu Lisesi</h5>
+                    <div class="small mb-1">Çevreyolu Cd., Yenidoğan, 34030 Bayrampaşa/İstanbul</div>
+                    <div class="mb-1">Tel: <a href="#" class="text-info">-</a></div>
+                    <div class="mb-1">
+                        <a href="https://maps.google.com/?q=41.035815,28.917174" target="_blank" class="btn btn-sm btn-info me-1 locate-btn" data-id="mtal"><i class="bi bi-geo-alt"></i> Konum</a>
+                    </div>
+                    <div class="small">H.içi: 09:00 - 18:00<br/>Cmt: 09:00 - 14:00<br/>Pz: Kapalı</div>
+                </div>
+                <div class="dealer mb-4" data-id="ticuniv">
+                    <h5 class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>İstanbul Ticaret Üniversitesi</h5>
+                    <div class="small mb-1">İmrahor Cd. No:90, Örnektepe, 34445 Beyoğlu/İstanbul</div>
+                    <div class="mb-1">Tel: <a href="#" class="text-info">-</a></div>
+                    <div class="mb-1">
+                        <a href="https://maps.google.com/?q=41.057841,28.951040" target="_blank" class="btn btn-sm btn-info me-1 locate-btn" data-id="ticuniv"><i class="bi bi-geo-alt"></i> Konum</a>
+                    </div>
+                    <div class="small">H.içi: 09:00 - 18:00<br/>Cmt: 09:00 - 14:00<br/>Pz: Kapalı</div>
+                </div>
+                <div class="dealer mb-4" data-id="corumchamber">
+                    <h5 class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>Çorum Ticaret ve Sanayi Odası</h5>
+                    <div class="small mb-1">Bahçelievler, 19200 Çorum Merkez/Çorum</div>
+                    <div class="mb-1">Tel: <a href="#" class="text-info">-</a></div>
+                    <div class="mb-1">
+                        <a href="https://maps.google.com/?q=40.561396,34.977741" target="_blank" class="btn btn-sm btn-info me-1 locate-btn" data-id="corumchamber"><i class="bi bi-geo-alt"></i> Konum</a>
+                    </div>
+                    <div class="small">H.içi: 09:00 - 18:00<br/>Cmt: 09:00 - 14:00<br/>Pz: Kapalı</div>
+                </div>
+                <div class="dealer mb-4" data-id="softito">
+                    <h5 class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>SoftITo Yazılım - Bilişim Akademisi (İstanbul Ticaret Odası)</h5>
+                    <div class="small mb-1">Gentes Yapı, İdtm Blokları A1 Blok No:6 D:247, Yeşilköy, Bakırköy, İstanbul</div>
+                    <div class="mb-1">Tel: <a href="#" class="text-info">-</a></div>
+                    <div class="mb-1">
+                        <a href="https://maps.google.com/?q=40.985610,28.832290" target="_blank" class="btn btn-sm btn-info me-1 locate-btn" data-id="softito"><i class="bi bi-geo-alt"></i> Konum</a>
+                    </div>
+                    <div class="small">H.içi: 09:00 - 18:00<br/>Cmt: 09:00 - 14:00<br/>Pz: Kapalı</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 p-0">
+            <div id="map" class="soft-map-shadow" style="width:100%;height:100vh;border-radius:1.5rem 0 0 1.5rem;overflow:hidden;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDf8Xc3JQq_yEERNQOsVlrYnBayw1OXmCQ"></script>
+<script>
+const dealers = [
+    {
+        id: "ito",
+        name: "İstanbul Ticaret Odası",
+        lat: 41.017084, lon: 28.974241,
+        address: "Reşadiye Cd. 7-5, Hobyar, 34112 Fatih/İstanbul"
+    },
+    {
+        id: "mtal",
+        name: "İstanbul Ticaret Odası Mesleki Ve Teknik Anadolu Lisesi",
+        lat: 41.035815, lon: 28.917174,
+        address: "Çevreyolu Cd., Yenidoğan, 34030 Bayrampaşa/İstanbul"
+    },
+    {
+        id: "ticuniv",
+        name: "İstanbul Ticaret Üniversitesi",
+        lat: 41.057841, lon: 28.951040,
+        address: "İmrahor Cd. No:90, Örnektepe, 34445 Beyoğlu/İstanbul"
+    },
+    {
+        id: "corumchamber",
+        name: "Çorum Ticaret ve Sanayi Odası",
+        lat: 40.561396, lon: 34.977741,
+        address: "Bahçelievler, 19200 Çorum Merkez/Çorum"
+    },
+    {
+        id: "softito",
+        name: "SoftITo Yazılım - Bilişim Akademisi (İstanbul Ticaret Odası)",
+        lat: 40.985610, lon: 28.832290,
+        address: "Gentes Yapı, İdtm Blokları A1 Blok No:6 D:247, Yeşilköy, Bakırköy, İstanbul"
+    }
+];
+
+const mapStyle = [
+  { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
+  { elementType: 'labels.text.stroke', stylers: [{ color: '#ffffff' }] },
+  { elementType: 'labels.text.fill', stylers: [{ color: '#333333' }] },
+  { featureType: 'water', stylers: [{ color: '#b3e6e6' }] },
+  { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#e0e0e0' }] },
+  { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#333' }] },
+  { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#eaeaea' }] },
+  { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#cceedd' }] },
+  { featureType: 'transit', elementType: 'geometry', stylers: [{ color: '#eaeaea' }] }
+];
+
+let map, markers = {}, infoWindows = {};
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 7,
+        center: { lat: 41.0, lng: 29.0 },
+        styles: mapStyle,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true
+    });
+    dealers.forEach(d => {
+        const marker = new google.maps.Marker({
+            position: { lat: d.lat, lng: d.lon },
+            map,
+            title: d.name,
+            icon: {
+                url: '/img/ito.png',
+                scaledSize: new google.maps.Size(38, 38)
+            }
+        });
+        const info = new google.maps.InfoWindow({
+            content: `<div style='min-width:180px; color:#23232b;'><b>${d.name}</b><br/><span style='font-size:0.95em;'>${d.address}</span></div>`
+        });
+        marker.addListener('mouseover', () => info.open(map, marker));
+        marker.addListener('mouseout', () => info.close());
+        marker.addListener('click', () => info.open(map, marker));
+        markers[d.id] = marker;
+        infoWindows[d.id] = info;
+    });
+}
+window.initMap = initMap;
+
+// Konum butonları ile harita etkileşimi
+$(document).on('click', '.locate-btn', function() {
+    const id = $(this).data('id');
+    if (markers[id]) {
+        map.panTo(markers[id].getPosition());
+        map.setZoom(15);
+        infoWindows[id].open(map, markers[id]);
+    }
+});
+</script>
+
+<style>
+body { background: #18181f !important; color: #e0f7f4; }
+.soft-section-title { color: #00e6d0; text-shadow: 0 1px 8px #00e6d077; }
+.dealer-list { max-height: 75vh; overflow-y: auto; }
+.dealer { border-bottom: 1px solid #333; padding-bottom: 1rem; margin-bottom: 1.5rem; background: #22242b; border-radius: 1rem; box-shadow: 0 2px 8px #00e6d022; padding: 1.2rem; }
+.dealer:last-child { border-bottom: none; }
+.soft-map-shadow { box-shadow: 0 8px 32px #00e6d055, 0 1.5px 8px #000a; min-height: 400px; }
+.locate-btn { font-weight: 600; letter-spacing: 0.5px; }
+@@media (max-width: 991px) {
+  .soft-map-shadow { border-radius: 0 0 1.5rem 1.5rem; min-height: 300px; }
+}
+</style>
+
+<!-- Google Maps'i başlat -->
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    if (typeof google !== 'undefined') initMap();
+});
+</script> 

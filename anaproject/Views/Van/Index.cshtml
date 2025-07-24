@@ -1,0 +1,97 @@
+﻿@model IEnumerable<anaproject.Models.Cars.Car>
+
+@{
+    ViewData["Title"] = "SOFT Van";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="audi-suv-hero text-center py-5 mb-4">
+    <h1 class="display-4 font-weight-bold" data-aos="fade-down">SOFT VAN Modelleri</h1>
+    <p class="lead mb-0">
+        Özgürlük, konfor ve akıllı teknolojilerle donatılmış SOFT VAN ailesiyle yola çıkmaya hazır mısınız?
+    </p>
+</div>
+
+<!-- Kartların üstüne video alanı -->
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="ratio ratio-16x9 modern-video-wrapper">
+                <video class="w-200 modern-video" controls>
+                    <source src="/videos/softVAN2.mp4" type="video/mp4">
+                </video>
+                <div class="modern-video-overlay" style="display:none;">
+                    <button class="modern-play-btn" aria-label="Oynat">
+                        <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="30" fill="rgba(0,230,208,0.85)"/><polygon points="24,18 46,30 24,42" fill="#fff"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+        @foreach (var car in Model)
+        {
+            <div class="col d-flex align-items-stretch">
+                <div class="card audi-card shadow-sm mb-0">
+                    <img src="@(string.IsNullOrEmpty(car.CarImage) ? "/img/softSUV.jpeg" : car.CarImage)" class="card-img-top" alt="@car.CarAdi" style="height:220px;object-fit:cover;" data-aos="zoom-in">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" style="font-weight:bold; color:#fff;">@car.CarAdi</h5>
+                        <p class="card-text mb-2" style="color:#b0e6e0;">@car.CarModel</p>
+                        <p class="card-text flex-grow-1" style="color:#b0e6e0;">@car.CarTur</p>
+                        <a href="/VAN/Discover/@car.ID" class="btn btn-outline-primary mt-auto">Detay</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+            <h2 class="mb-3" data-aos="fade-up">SOFT VAN – Yolculuğu Yaşam Biçimine Dönüştür</h2>
+            <p>
+                SOFT VAN, uzun yolculuklar ve keşif ruhu için tasarlanmış, tamamen elektrikli bir mobil yaşam aracıdır. Geniş iç hacmi, sessiz sürüşü ve akıllı sistemleriyle hem konforlu hem de sürdürülebilir bir yolculuk deneyimi sunar.
+            </p>
+            <ul class="list-unstyled">
+                <li>• Modüler ve fonksiyonel iç yaşam alanı</li>
+                <li>• 150 beygir gücünde elektrikli motor ile 0–100 km/s: ~12,5 saniye</li>
+                <li>• 950 km'ye varan menzil (şehir içi kullanımda)</li>
+                <li>• Güneş paneli destekli enerji yönetimi (opsiyonel)</li>
+                <li>• Dijital kokpit ve akıllı rota planlama sistemleri</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    .audi-suv-hero {
+        background: linear-gradient(90deg, #23232b 60%, #101014 100%);
+        color: #fff;
+        border-radius: 1rem;
+    }
+
+    .audi-suv-card {
+        border-radius: 1rem;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+        .audi-suv-card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            transform: translateY(-6px) scale(1.03);
+        }
+
+        .audi-suv-card .btn-outline-primary {
+            border-radius: 2rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+            .audi-suv-card .btn-outline-primary:hover {
+                background: #00e6d0;
+                color: #101014;
+                border-color: #00e6d0;
+            }
+</style>

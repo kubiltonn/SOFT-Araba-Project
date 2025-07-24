@@ -1,0 +1,538 @@
+@model List<anaproject.Models.Product>
+@{
+    ViewData["Title"] = "Ürün Yönetimi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.admin-section-title { 
+    color: #00e6d0; 
+    text-shadow: 0 1px 8px #00e6d077; 
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.admin-subtitle {
+    color: #a0a0a0;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.admin-container {
+    background: linear-gradient(135deg, #1a1a1f 0%, #23232b 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 230, 208, 0.1);
+    border: 1px solid rgba(0, 230, 208, 0.2);
+}
+
+.product-table { 
+    background: transparent;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.product-table thead {
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 100%);
+}
+
+.product-table th {
+    color: #23232b;
+    border: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+}
+
+.product-table tbody tr {
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(0, 230, 208, 0.1);
+    transition: all 0.3s ease;
+}
+
+.product-table tbody tr:hover {
+    background: rgba(0, 230, 208, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 230, 208, 0.1);
+}
+
+.product-table td {
+    border: none;
+    color: #e0f7f4;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #00e6d0;
+    box-shadow: 0 4px 8px rgba(0, 230, 208, 0.2);
+}
+
+.product-image-placeholder {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00e6d0;
+    box-shadow: 0 4px 8px rgba(0, 230, 208, 0.2);
+}
+
+.btn-admin-primary {
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 100%);
+    border: none;
+    color: #23232b;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 230, 208, 0.3);
+}
+
+.btn-admin-primary:hover {
+    background: linear-gradient(135deg, #00b3a0 0%, #00e6d0 100%);
+    color: #23232b;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 230, 208, 0.4);
+}
+
+.btn-action {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-action::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-action:hover::before {
+    left: 100%;
+}
+
+.btn-view {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+}
+
+.btn-view:hover {
+    background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: linear-gradient(135deg, #1976D2 0%, #2196F3 100%);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    color: white;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+}
+
+.btn-toggle {
+    background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+    color: white;
+}
+
+.btn-toggle:hover {
+    background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+}
+
+.action-tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.action-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.8);
+}
+
+.btn-action:hover .action-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.category-badge {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-active {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.status-inactive {
+    background: linear-gradient(135deg, #9E9E9E 0%, #757575 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(158, 158, 158, 0.3);
+}
+
+.price-display {
+    color: #4CAF50;
+    font-weight: 700;
+    font-size: 1rem;
+    text-shadow: 0 1px 2px rgba(76, 175, 80, 0.3);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #a0a0a0;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.alert-custom {
+    border-radius: 15px;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    color: white;
+}
+
+.table-responsive {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.action-tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.action-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.8);
+}
+
+.btn-action:hover .action-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.product-name {
+    font-weight: 600;
+    color: #e0f7f4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.product-description {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #a0a0a0;
+    font-size: 0.85rem;
+}
+
+@@media (max-width: 768px) {
+    .admin-container {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    .product-table th,
+    .product-table td {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
+}
+</style>
+
+<section class="container py-5">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="admin-section-title mb-3">Ürün Yönetimi</h1>
+        <p class="admin-subtitle mb-4">SOFT Shop ürünlerini profesyonel şekilde yönetin</p>
+        
+        <a href="@Url.Action("CreateProduct", "Admin")" class="btn btn-admin-primary">
+            <i class="fas fa-plus me-2"></i>Yeni Ürün Ekle
+        </a>
+    </div>
+
+    <!-- Success/Error Messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-custom alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-custom alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-custom alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            @ViewBag.ErrorMessage
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Products Table Container -->
+    <div class="admin-container">
+        <div class="table-responsive">
+            <table class="table product-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Resim</th>
+                        <th>Ürün Adı</th>
+                        <th>Kategori</th>
+                        <th>Fiyat</th>
+                        <th>Açıklama</th>
+                        <th>Durum</th>
+                        <th>Tarih</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge bg-secondary">#@product.Id</span>
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                    {
+                                        <img src="@product.ImageUrl" alt="@product.Name" class="product-image">
+                                    }
+                                    else
+                                    {
+                                        <div class="product-image-placeholder">
+                                            <i class="fas fa-box text-dark"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="product-name">@product.Name</div>
+                                </td>
+                                <td>
+                                    <span class="category-badge">@product.Category</span>
+                                </td>
+                                <td>
+                                    <span class="price-display">@product.Price.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</span>
+                                </td>
+                                <td>
+                                    <div class="product-description" title="@product.Description">
+                                        @if (!string.IsNullOrEmpty(product.Description))
+                                        {
+                                            @(product.Description.Length > 30 ? product.Description.Substring(0, 30) + "..." : product.Description)
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Açıklama yok</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (product.IsAvailable)
+                                    {
+                                        <span class="status-badge status-active">
+                                            <i class="fas fa-check me-1"></i>Aktif
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-inactive">
+                                            <i class="fas fa-times me-1"></i>Pasif
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    <small class="text-muted">@product.CreatedAt.ToString("dd.MM.yyyy")</small>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="@Url.Action("EditProduct", "Admin", new { id = product.Id })" 
+                                           class="btn btn-action btn-edit" 
+                                           title="Düzenle">
+                                            <i class="fas fa-edit"></i>
+                                            <span class="action-tooltip">Düzenle</span>
+                                        </a>
+                                        <form method="post" 
+                                              action="@Url.Action("DeleteProduct", "Admin", new { id = product.Id })" 
+                                              style="display: inline;" 
+                                              onsubmit="return confirm('Bu ürünü silmek istediğinizden emin misiniz?');">
+                                            <button type="submit" 
+                                                    class="btn btn-action btn-delete" 
+                                                    title="Sil">
+                                                <i class="fas fa-trash"></i>
+                                                <span class="action-tooltip">Sil</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9">
+                                <div class="empty-state">
+                                    <i class="fas fa-box-open"></i>
+                                    <h4 class="mb-3">Henüz ürün bulunmuyor</h4>
+                                    <p class="mb-4">İlk ürününüzü ekleyerek başlayın</p>
+                                    <a href="@Url.Action("CreateProduct", "Admin")" class="btn btn-admin-primary">
+                                        <i class="fas fa-plus me-2"></i>İlk Ürünü Ekle
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> 

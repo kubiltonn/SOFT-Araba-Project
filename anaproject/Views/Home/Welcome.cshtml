@@ -1,0 +1,167 @@
+﻿@{
+    Layout = null; // Hoşgeldin sayfası için sade bir görünüm
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hoşgeldiniz</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: #111;
+            color: #fff;
+            text-align: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            margin-top: 40px;
+            width: 320px;
+            height: auto;
+            filter: drop-shadow(0 6px 32px #0008);
+            margin-bottom: 32px;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+            margin-top: 0;
+        }
+
+        .welcome-video {
+            width: 60vw;
+            max-width: 900px;
+            min-width: 320px;
+            border-radius: 32px;
+            box-shadow: 0 8px 48px #000a, 0 1.5px 8px #fff2 inset;
+            border: 2px solid #fff3;
+            background: #222;
+            margin-bottom: 32px;
+        }
+
+        .button-group {
+            position: static;
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+        }
+
+        .go-btn {
+            min-width: 240px;
+            padding: 18px 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+            color: #222;
+            border: none;
+            border-radius: 32px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+            box-shadow: 0 4px 24px #0005;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+            .go-btn:hover {
+                background: linear-gradient(90deg, #fcb69f 0%, #ffecd2 100%);
+                color: #111;
+                transform: scale(1.06);
+            }
+
+            .go-btn svg {
+                width: 22px;
+                height: 22px;
+                vertical-align: middle;
+            }
+    </style>
+</head>
+<body style="position:relative;">
+    <button id="themeToggle" aria-label="Tema Değiştir" style="position: absolute; top: 32px; right: 32px; background: none; border: none; cursor: pointer; z-index: 1000; font-size: 2rem; color: #ffd700; transition: color 0.2s;">
+        <span id="themeIcon">🌙</span>
+    </button>
+    <img src="/img/softLOGOS.png" alt="Logo" class="logo" />
+    <div class="video-container">
+        <video id="welcomeVideo" class="welcome-video" autoplay loop muted>
+            <source src="/videos/softWELCOME.mp4" type="video/mp4" />
+        </video>
+        <div class="button-group">
+            <button id="unmuteBtn" class="go-btn">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M19 12c0-1.657-1.343-3-3-3m3 3c0 1.657-1.343 3-3 3m3-3h0" /></svg>
+                Sesi Aç
+            </button>
+            <button id="muteBtn" class="go-btn">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z" /><line x1="23" y1="9" x2="17" y2="15" /><line x1="17" y1="9" x2="23" y2="15" /></svg>
+                Sesi Kapat
+            </button>
+            <button id="goBtn" class="go-btn">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                Siteye Git
+            </button>
+            <button id="collectionBtn" class="go-btn" style="background: linear-gradient(90deg, #00e6d0 0%, #00b3a0 100%);">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                Koleksiyon
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // Tema toggle
+    function setTheme(mode) {
+        if (mode === 'light') {
+            document.body.style.background = '#f3f3f3';
+            document.body.style.color = '#23232b';
+            document.getElementById('themeIcon').textContent = '☀️';
+        } else {
+            document.body.style.background = '#111';
+            document.body.style.color = '#fff';
+            document.getElementById('themeIcon').textContent = '🌙';
+        }
+        localStorage.setItem('theme', mode);
+    }
+    function getTheme() {
+        return localStorage.getItem('theme') || 'dark';
+    }
+    document.getElementById('themeToggle').addEventListener('click', function () {
+        var current = getTheme();
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    // Sayfa yüklenince uygula
+    setTheme(getTheme());
+
+    // Video ve butonlar
+    var video = document.getElementById('welcomeVideo');
+    document.getElementById('unmuteBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        video.muted = false;
+        video.play();
+    });
+    document.getElementById('muteBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        video.muted = true;
+    });
+    document.getElementById('goBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        window.location.href = '@Url.Action("Index", "Page")';
+    });
+    document.getElementById('collectionBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        window.location.href = '@Url.Action("Index", "Collection")';
+    });
+</script>

@@ -1,0 +1,271 @@
+@{
+    ViewData["Title"] = "Yaklaşık Menzilinizi Hesaplayın | SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .menzil-calculator-container {
+        display: flex;
+        gap: 2rem;
+        padding: 2rem;
+        background: #18181f;
+        color: #fff;
+        border-radius: 1.5rem;
+        max-width: 1200px;
+        margin: 2rem auto;
+        box-shadow: 0 8px 48px #00e6d055;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .left-panel {
+        width: 45%;
+        text-align: center;
+    }
+    .left-panel img {
+        max-width: 85%;
+        margin: 0 auto;
+        border-radius: 1rem;
+        filter: drop-shadow(0 4px 24px #00e6d077);
+    }
+    .menzil-sonuc {
+        background: #0d0d0d;
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+    .menzil-sonuc h3 {
+        color: #e0f7f4;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .menzil-sonuc .menzil-deger {
+        font-size: 5rem;
+        font-weight: 900;
+        color: #00e6d0;
+        text-shadow: 0 0 24px #00e6d0;
+    }
+    .right-panel {
+        width: 55%;
+    }
+    .right-panel h2 {
+        font-weight: 800;
+        color: #fff;
+        text-shadow: 0 2px 12px #00e6d0aa;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    .form-group {
+        margin-bottom: 1.8rem;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 0.75rem;
+        font-weight: 700;
+        color: #e0f7f4;
+        font-size: 1.2rem;
+    }
+    .radio-group input {
+        margin-right: 0.5rem;
+    }
+    .radio-group label {
+        font-size: 1.1rem;
+        color: #fff;
+        font-weight: 500;
+    }
+    .menzil-section {
+        background: rgba(35,35,43,0.7);
+        border: 1px solid #00e6d0;
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        margin-top: 3rem;
+        backdrop-filter: blur(8px);
+    }
+    .menzil-section h2 {
+        color: #00e6d0;
+        font-weight: 800;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #00e6d0;
+        display: inline-block;
+        text-shadow: 0 1px 8px #00e6d077;
+    }
+    .menzil-list {
+        list-style: none;
+        padding-left: 0;
+        font-size: 1.2rem;
+    }
+    .menzil-list li {
+        display: flex;
+        align-items: center;
+        color: #e0f7f4;
+        margin-bottom: 1.2rem;
+        font-weight: 500;
+    }
+    .menzil-list li i {
+        color: #00e6d0;
+        font-size: 1.8rem;
+        margin-right: 1.5rem;
+        text-shadow: 0 0 12px #00e6d0;
+    }
+    .menzil-ipuclari .card {
+        background: linear-gradient(135deg, rgba(35,35,43,0.85) 60%, rgba(0,230,208,0.15) 100%);
+        border: none;
+        border-radius: 1.2rem;
+        color: #fff;
+        height: 100%;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 8px 32px #00000055;
+    }
+    .menzil-ipuclari .card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 16px 48px #00e6d077;
+    }
+    .menzil-ipuclari .card-body {
+        padding: 2rem;
+    }
+    .menzil-ipuclari .card-title {
+        color: #00e6d0;
+        font-weight: 800;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    .menzil-ipuclari .card-text {
+        font-size: 1.1rem;
+        color: #e0f7f4;
+    }
+</style>
+
+<div class="menzil-calculator-container">
+    <div class="left-panel">
+        <img src="/img/softGT.png" alt="SOFT GTX">
+        <div class="menzil-sonuc">
+            <h3>Hesaplanan menzil</h3>
+            <div id="menzilSonuc" class="menzil-deger">613 km</div>
+        </div>
+    </div>
+    <div class="right-panel">
+        <h2>Yaklaşık menzilinizi hesaplayın</h2>
+        <div class="form-group">
+            <label for="disSicaklik">Dış sıcaklık nedir? <span id="disSicaklikDeger">20</span>°C</label>
+            <input type="range" id="disSicaklik" min="-20" max="30" value="20" class="form-range">
+        </div>
+        <div class="form-group">
+            <label>Isıtma veya klima donanımı açık mı?</label>
+            <div class="radio-group">
+                <input type="radio" id="klimaHayir" name="klima" value="hayir" checked>
+                <label for="klimaHayir">Hayır</label>
+                <input type="radio" id="klimaEvet" name="klima" value="evet">
+                <label for="klimaEvet">Evet</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Araçta kaç kişi var?</label>
+            <div class="radio-group">
+                <input type="radio" id="birKisi" name="kisi" value="1" checked>
+                <label for="birKisi">1 Kişi</label>
+                <input type="radio" id="tamDolu" name="kisi" value="dolu">
+                <label for="tamDolu">Tam Dolu</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const disSicaklik = document.getElementById('disSicaklik');
+        const disSicaklikDeger = document.getElementById('disSicaklikDeger');
+        const klimaRadios = document.querySelectorAll('input[name="klima"]');
+        const kisiRadios = document.querySelectorAll('input[name="kisi"]');
+        const menzilSonuc = document.getElementById('menzilSonuc');
+
+        function hesaplaMenzil() {
+            let temelMenzil = 650; // km
+
+            // Sıcaklık etkisi
+            const sicaklik = parseInt(disSicaklik.value);
+            if (sicaklik < 10) {
+                temelMenzil -= (10 - sicaklik) * 3;
+            }
+
+            // Klima etkisi
+            if (document.querySelector('input[name="klima"]:checked').value === 'evet') {
+                temelMenzil -= 50;
+            }
+
+            // Kişi sayısı etkisi
+            if (document.querySelector('input[name="kisi"]:checked').value === 'dolu') {
+                temelMenzil -= 30;
+            }
+            
+            menzilSonuc.textContent = `${Math.round(temelMenzil)} km`;
+        }
+
+        // Sıcaklık değeri güncelleme
+        disSicaklik.addEventListener('input', () => {
+            disSicaklikDeger.textContent = disSicaklik.value;
+            hesaplaMenzil();
+        });
+        klimaRadios.forEach(radio => radio.addEventListener('change', hesaplaMenzil));
+        kisiRadios.forEach(radio => radio.addEventListener('change', hesaplaMenzil));
+
+        // Sayfa yüklendiğinde ilk değerleri ayarla
+        disSicaklikDeger.textContent = disSicaklik.value;
+        hesaplaMenzil();
+    });
+</script>
+
+<div class="container pb-5">
+    <div class="menzil-section">
+        <h2>Menzili Etkileyen Faktörler</h2>
+        <ul class="menzil-list">
+            <li><i class="bi bi-speedometer2"></i> Bireysel sürüş tarzı ve hız</li>
+            <li><i class="bi bi-gear-wide-connected"></i> Seçilen sürüş modu (örn: verimlilik, spor)</li>
+            <li><i class="bi bi-thermometer-half"></i> İklim koşulları ve dış sıcaklık</li>
+            <li><i class="bi bi-snow"></i> Kış lastikleri ve yol koşulları</li>
+            <li><i class="bi bi-battery-charging"></i> Klima, ısıtma gibi elektrik tüketicileri</li>
+            <li><i class="bi bi-box-seam"></i> Araç yükü ve ek donanımlar (örn: tavan bagajı)</li>
+        </ul>
+    </div>
+
+    <div class="menzil-section menzil-ipuclari">
+        <h2>Kışa Yönelik Menzil İpuçları</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">1. Bataryayı Koruyun</h5>
+                        <p class="card-text">Aracınızı mümkünse kapalı ve korunaklı bir alana park ederek bataryayı düşük sıcaklıklardan koruyun.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">2. Verimli Sürüş Modu</h5>
+                        <p class="card-text">"Verimlilik" sürüş modunu kullanarak ve aracın verimlilik asistanının önerilerine uyarak menzilinizi optimize edin.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">3. Elektrik Tüketicilerini Azaltın</h5>
+                        <p class="card-text">Klima, koltuk ısıtma ve buz çözme gibi özellikleri yalnızca gerektiğinde kullanarak enerji tasarrufu yapın.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">4. Lastik Basıncına Dikkat Edin</h5>
+                        <p class="card-text">Doğru lastik basıncı, yuvarlanma direncini azaltarak menzili artırır. Kışın lastik basıncınızı düzenli olarak kontrol edin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

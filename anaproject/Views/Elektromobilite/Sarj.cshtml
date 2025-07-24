@@ -1,0 +1,196 @@
+@{
+    ViewData["Title"] = "Şarj";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .sarj-hero-bg {
+        background: linear-gradient(120deg, #0d0d0d 60%, #00e6d0 100%);
+        min-height: 340px;
+        padding-top: 48px;
+        padding-bottom: 48px;
+        position: relative;
+    }
+    .sarj-hero-bg h1 {
+        text-shadow: 0 2px 32px #00e6d0cc, 0 2px 24px #000a;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        background: linear-gradient(90deg, #00e6d0 30%, #fff 70%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .sarj-hero-bg .lead {
+        color: #e0f7f4;
+        font-size: 1.2rem;
+        text-shadow: 0 1px 8px #00e6d055;
+    }
+    .sarj-video-wrap {
+        box-shadow: 0 8px 48px 0 #00e6d088, 0 2px 16px #000a;
+        border-radius: 2rem;
+        overflow: hidden;
+        margin-top: -80px;
+        margin-bottom: 48px;
+        border: 3px solid #00e6d0;
+        background: rgba(24,24,31,0.7);
+        backdrop-filter: blur(8px) saturate(1.2);
+        position: relative;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sarj-video-wrap::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 2rem;
+        box-shadow: 0 0 80px 20px #00e6d055;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .elektro-info-card {
+        background: rgba(35,35,43,0.7);
+        border: none;
+        box-shadow: 0 8px 40px 0 #00e6d044, 0 2px 12px #000a;
+        transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s, background 0.18s;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        backdrop-filter: blur(10px) saturate(1.3);
+        border-radius: 2rem;
+        position: relative;
+        overflow: hidden;
+        padding: 1.2rem 1rem 1.2rem 1rem !important;
+    }
+    .elektro-info-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, #00e6d0 0%, #23232b 100%);
+        opacity: 0.13;
+        z-index: 0;
+    }
+    .elektro-info-card .info-icon {
+        z-index: 2;
+        transition: transform 0.25s cubic-bezier(.4,2,.6,1);
+    }
+    .elektro-info-card .info-icon i {
+        font-size: 2.1rem;
+        filter: drop-shadow(0 2px 12px #00e6d0cc);
+        transition: color 0.18s, filter 0.18s, transform 0.18s;
+    }
+    .elektro-info-card:hover {
+        transform: translateY(-12px) scale(1.045);
+        box-shadow: 0 16px 64px 0 #00e6d0bb, 0 4px 24px #000a;
+        background: rgba(0,230,208,0.13);
+    }
+    .elektro-info-card:hover .info-icon {
+        transform: scale(1.18) rotate(-8deg);
+    }
+    .elektro-info-card:hover .info-icon i {
+        color: #fff !important;
+        filter: drop-shadow(0 2px 24px #00e6d0ff);
+        text-shadow: 0 0 16px #00e6d0cc;
+    }
+    .elektro-info-card h5 {
+        font-weight: 800;
+        font-size: 1.1rem;
+        background: linear-gradient(90deg, #00e6d0 30%, #fff 70%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        z-index: 2;
+    }
+    .elektro-info-card p {
+        color: #e0f7f4;
+        font-size: 0.97rem;
+        z-index: 2;
+    }
+    .elektro-info-card .btn {
+        border-radius: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-size: 0.97rem;
+        transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+        box-shadow: 0 2px 12px #00e6d044;
+        z-index: 2;
+        padding: 0.35rem 1.1rem;
+    }
+    .elektro-info-card .btn:hover {
+        background: #00e6d0;
+        color: #18181f;
+        border-color: #00e6d0;
+        box-shadow: 0 4px 24px #00e6d0cc;
+    }
+   
+</style>
+
+<!-- HERO + VİDEO -->
+<div class="sarj-hero-bg d-flex align-items-center justify-content-center flex-column text-center mb-0">
+    <h1 class="display-5 mb-3 animate-fadein">SOFT Elektrikli Araçlarda Şarj Deneyimi</h1>
+    <p class="lead mb-0 animate-slideup">Elektrikli aracınızı evde veya halka açık istasyonlarda güvenle şarj edin. Tüm şarj çözümlerimiz ve ipuçları burada!</p>
+</div>
+<section class="container sarj-video-wrap">
+    <video class="w-100" controls poster="/wwwroot/img/softSARJ-poster.jpg">
+        <source src="/videos/softSARJ.mp4" type="video/mp4">
+        Tarayıcınız video etiketini desteklemiyor.
+    </video>
+</section>
+
+<!-- BİLGİ KUTULARI -->
+<section class="container pb-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+        <div class="col">
+            <div class="elektro-info-card p-4 h-100 text-white">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="info-icon d-flex align-items-center justify-content-center me-3"><i class="bi bi-house-door text-primary"></i></span>
+                    <h5 class="fw-bold mb-0">Evde şarj</h5>
+                </div>
+                <p class="mb-2">SOFT elektrikli araçlarınızı evde güvenli ve verimli şarj etmenin yolları.</p>
+                <a href="/Sarj/HomeSarj" class="btn btn-outline-info btn-sm elektro-btn mt-auto">Daha fazla bilgi</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="elektro-info-card p-4 h-100 text-white">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="info-icon d-flex align-items-center justify-content-center me-3"><i class="bi bi-lightbulb text-warning"></i></span>
+                    <h5 class="fw-bold mb-0">Şarj ipuçları</h5>
+                </div>
+                <p class="mb-2">Şarj sürecini hızlandıran ve batarya ömrünü uzatan pratik öneriler.</p>
+                <a href="/Sarj/Ipuclari" class="btn btn-outline-info btn-sm elektro-btn mt-auto">İpuçlarına Git</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="elektro-info-card p-4 h-100 text-white">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="info-icon d-flex align-items-center justify-content-center me-3"><i class="bi bi-clock-history text-success"></i></span>
+                    <h5 class="fw-bold mb-0">Ne kadar süre şarj etmeliyim?</h5>
+                </div>
+                <p class="mb-2">Şarj süresini etkileyen faktörler ve ideal şarj süreleri hakkında bilgi alın.</p>
+                <a href="/Sarj/HowLongToCharge" class="btn btn-outline-info btn-sm elektro-btn mt-auto">Detaylı Bilgi</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="elektro-info-card p-4 h-100 text-white">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="info-icon d-flex align-items-center justify-content-center me-3"><i class="bi bi-play-circle text-danger"></i></span>
+                    <h5 class="fw-bold mb-0">SOFT’tan açıklayıcı videolar</h5>
+                </div>
+                <p class="mb-2">Şarj işlemiyle ilgili tüm detayları kısa ve anlaşılır videolarla öğrenin.</p>
+                <a href="/Sarj/ChargeVideo" class="btn btn-outline-info btn-sm elektro-btn mt-auto">Videolara Git</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="elektro-info-card p-4 h-100 text-white">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="info-icon d-flex align-items-center justify-content-center me-3"><i class="bi bi-question-circle text-warning"></i></span>
+                    <h5 class="fw-bold mb-0">Sıkça sorulan sorular (SSS)</h5>
+                </div>
+                <p class="mb-2">Şarj ile ilgili en çok merak edilen sorular ve yanıtları burada.</p>
+                <a href="/Sarj/SSS" class="btn btn-outline-info btn-sm elektro-btn mt-auto">SSS'ye Git</a>
+            </div>
+        </div>
+    </div>
+</section>

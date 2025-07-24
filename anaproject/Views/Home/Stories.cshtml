@@ -1,0 +1,379 @@
+@{
+    ViewData["Title"] = "SOFT İlerleme Hikayeleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.stories-hero {
+    background: linear-gradient(135deg, #18181f 0%, #23232b 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 4rem 0;
+    width: 100%;
+}
+
+.stories-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2300e6d0" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.stories-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stories-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00e6d0 0%, #00b3a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(0, 230, 208, 0.3);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    line-height: 1.2;
+    width: 100%;
+}
+
+.stories-subtitle {
+    font-size: 1.25rem;
+    color: #e0f7f4;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.story-category {
+    background: #23232b;
+    border: 1px solid #00e6d0;
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.story-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #00e6d0, #00b3a0);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.story-category:hover::before {
+    transform: scaleX(1);
+}
+
+.story-category:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 230, 208, 0.2);
+    border-color: #00b3a0;
+}
+
+.story-category-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.story-category:hover .story-category-image {
+    transform: scale(1.05);
+}
+
+.story-category-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #00e6d0;
+    margin-bottom: 1rem;
+}
+
+.story-category-description {
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.story-category-link {
+    color: #00e6d0;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.story-category-link:hover {
+    color: #00b3a0;
+    transform: translateX(5px);
+}
+
+.story-category-link i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.story-category-link:hover i {
+    transform: translateX(3px);
+}
+
+.featured-story {
+    background: linear-gradient(135deg, #23232b 0%, #1a1a1f 100%);
+    border: 2px solid #00e6d0;
+    border-radius: 1.5rem;
+    padding: 3rem;
+    margin: 3rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-story::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 230, 208, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+@@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.featured-story-content {
+    position: relative;
+    z-index: 2;
+}
+
+.featured-story-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #00e6d0;
+    margin-bottom: 1.5rem;
+}
+
+.featured-story-description {
+    font-size: 1.1rem;
+    color: #e0f7f4;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.featured-story-image {
+    width: 100%;
+    max-width: 400px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 1rem;
+    border: 2px solid #00e6d0;
+}
+
+@@media (max-width: 768px) {
+    .stories-title {
+        font-size: 2.5rem;
+        line-height: 1.1;
+    }
+    
+    .stories-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .stories-hero {
+        min-height: 50vh;
+        padding: 3rem 0;
+    }
+    
+    .stories-hero-content {
+        padding: 0 1rem;
+    }
+    
+    .featured-story {
+        padding: 2rem;
+    }
+    
+    .featured-story-title {
+        font-size: 2rem;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="stories-hero">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="stories-hero-content">
+                    <h1 class="stories-title">SOFT İlerleme Hikayeleri</h1>
+                    <p class="stories-subtitle">
+                        SOFT için gelecek bir tutumdur. Bu, inovasyonu mümkün kılarak ve elektrikli mobilite dünyasını değiştirmek için cesurca ilerleyerek sağlanır. Teknoloji ve Tasarımdan Sürdürülebilirlik ve Lifestyle'a kadar çeşitli konularda SOFT'un geleceği nasıl şekillendirmeye başladığını deneyimleyin.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Story -->
+<section class="container py-5">
+    <div class="featured-story">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="featured-story-content">
+                    <h2 class="featured-story-title">Elektrikli Mobilite Devrimi</h2>
+                    <p class="featured-story-description">
+                        SOFT, elektrikli araç teknolojisinde öncü adımlar atarak sürdürülebilir bir gelecek için çalışıyor. Sıfır emisyonlu araçlarımızla çevre dostu mobilite deneyimini herkes için erişilebilir kılıyoruz.
+                    </p>
+                    <a href="#" class="btn btn-outline-info btn-lg">
+                        <i class="fas fa-arrow-right me-2"></i>Hikayeyi Keşfet
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="/img/soft_meka.jpeg" alt="SOFT Elektrikli Mobilite" class="featured-story-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Story Categories -->
+<section class="container py-5">
+    <div class="row g-4">
+        <!-- Teknoloji -->
+        <div class="col-lg-4 col-md-6">
+            <div class="story-category">
+                <img src="/img/soft_tekno.webp" alt="SOFT Teknoloji" class="story-category-image">
+                <h3 class="story-category-title">Teknoloji</h3>
+                <p class="story-category-description">
+                    Teknoloji yoluyla ilerleme. Bugün burada, ilerici teknoloji ve tutkulu yaratıcılık, büyüleyici araçlara ve çözümlere yön veriyor. Yeniliklerin anahtarı olan başarıyı keşfedin.
+                </p>
+                <a href="#" class="story-category-link">
+                    Daha fazla bilgi <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Gelecek -->
+        <div class="col-lg-4 col-md-6">
+            <div class="story-category">
+                <img src="/img/soft_future.webp" alt="SOFT Gelecek" class="story-category-image">
+                <h3 class="story-category-title">Gelecek</h3>
+                <p class="story-category-description">
+                    SOFT, heyecan verici bir gelecek için inovatif vizyonlar ve konseptler şekillendiriyor. Bu hiçbir yerde markanın konsept araçlarında olduğu kadar somut değildir.
+                </p>
+                <a href="#" class="story-category-link">
+                    Daha fazla bilgi <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Tasarım -->
+        <div class="col-lg-4 col-md-6">
+            <div class="story-category">
+                <img src="/img/softSUV.jpeg" alt="SOFT Tasarım" class="story-category-image">
+                <h3 class="story-category-title">Tasarım</h3>
+                <p class="story-category-description">
+                    İç ve dış mekanın işlevselliğine nefes kesici ve duygusal bir estetik kazandıran ideal tasarım: SOFT sadece heyecan verici tasarımlar değil, aynı zamanda deneyimler için alanlar da yaratıyor.
+                </p>
+                <a href="#" class="story-category-link">
+                    Daha fazla bilgi <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Sürdürülebilirlik -->
+        <div class="col-lg-4 col-md-6">
+            <div class="story-category">
+                <img src="/img/soft_meka2.webp" alt="SOFT Sürdürülebilirlik" class="story-category-image">
+                <h3 class="story-category-title">Sürdürülebilirlik</h3>
+                <p class="story-category-description">
+                    SOFT, derin inancıyla sürekli olarak sürdürülebilir şekilde hareket ediyor. Hem temiz mobiliteye dönüşümü nasıl şekillendirdiği hem de toplumsal değişime kazandırdığı ivme hakkında daha fazla bilgi edinin.
+                </p>
+                <a href="#" class="story-category-link">
+                    Daha fazla bilgi <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Lifestyle -->
+        <div class="col-lg-4 col-md-6">
+            <div class="story-category">
+                <img src="/img/soft_life.webp" alt="SOFT Lifestyle" class="story-category-image">
+                <h3 class="story-category-title">Lifestyle</h3>
+                <p class="story-category-description">
+                    İlham yaratıcılığa ilham verir: Sınırları sorguladığınızda, yeni bir şeye cesaret ettiğinizde ve onu gerçeğe dönüştürdüğünüzde olağanüstü şeyler olur.
+                </p>
+                <a href="#" class="story-category-link">
+                    Daha fazla bilgi <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Performans -->
+        <div class="col-lg-4 col-md-6">
+            <div class="story-category">
+                <img src="/img/softGTX-ic.jpeg" alt="SOFT Performans" class="story-category-image">
+                <h3 class="story-category-title">Performans</h3>
+                <p class="story-category-description">
+                    Zorluklardan ilham alan: Elektrikli motor sporlarının büyüsünü deneyimleyin. SOFT Sport ile performansın yeni tanımını keşfedin.
+                </p>
+                <a href="#" class="story-category-link">
+                    Daha fazla bilgi <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <h2 class="mb-4" style="color: #00e6d0;">SOFT Hikayelerini Keşfet</h2>
+            <p class="mb-4" style="color: #e0f7f4;">
+                SOFT'un elektrikli mobilite yolculuğunda öncü adımlarını ve geleceği nasıl şekillendirdiğini keşfedin.
+            </p>
+            <a href="/Shop/Index" class="btn btn-lg" style="background: linear-gradient(135deg, #00e6d0, #00b3a0); border: none; color: #23232b; font-weight: 600; padding: 1rem 2rem;">
+                <i class="fas fa-shopping-cart me-2"></i>SOFT Shop'a Git
+            </a>
+            <a href="@Url.Action("Index", "Collection")" class="btn btn-lg btn-outline-info ms-3" style="border: 2px solid #00e6d0; color: #00e6d0; font-weight: 600; padding: 1rem 2rem;">
+                <i class="fas fa-star me-2"></i>Koleksiyon Modelleri
+            </a>
+        </div>
+    </div>
+</section> 

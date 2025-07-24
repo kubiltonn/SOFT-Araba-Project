@@ -1,0 +1,124 @@
+@{
+    ViewData["Title"] = "Servis ve Aksesuarlar | SOFT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container py-5 text-center">
+    <h1 class="display-4 fw-bold mb-3 soft-gradient-text">Elektrik Servisi ve Aksesuarlar</h1>
+    <p class="lead text-secondary mb-4">
+        SOFT orijinal aksesuarları, elektrikli günlük yaşamınızı kolaylaştıran iyi düşünülmüş ve özelleştirilmiş çözümler sunar.
+    </p>
+</section>
+
+<section class="container pb-5">
+    <div class="row justify-content-center g-3">
+        <div class="col-md-auto">
+            <a href="#" class="btn soft-link-card d-flex align-items-center justify-content-between p-3">
+                <span><i class="bi bi-cart3 me-2"></i>SOFT Shop</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+        <div class="col-md-auto">
+            <a href="/YetkiliSaticilar/Index" class="btn soft-link-card d-flex align-items-center justify-content-between p-3">
+                <span><i class="bi bi-tools me-2"></i>Yetkili Servisler</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+        <div class="col-md-auto">
+            <a href="#" class="btn soft-link-card d-flex align-items-center justify-content-between p-3">
+                <span><i class="bi bi-calendar-check me-2"></i>Çevrimiçi Randevu Al</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="container pb-4">
+    <div class="soft-card p-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="/img/softGT.png" class="img-fluid rounded-4 " alt="Elektrikli Otomobil Batarya Bakımı">
+            </div>
+            <div class="col-lg-6 ps-lg-5">
+                <h2 class="fw-bold mb-3 soft-section-title">Elektrikli otomobilinizin bataryasına nasıl iyi bakabilirsiniz?</h2>
+                <p>
+                    Cep telefonu bataryalarında olduğu gibi, yüksek voltajlı bataryanız için de uygulayabileceğiniz bakım ipuçları vardır. Bu şekilde, uzun vadede yüksek menzillerden yararlanır ve bataryanın değerini korumak için bir şeyler yaparsınız. SOFT garantisi, batarya koruması ve batarya kapasitesi gibi diğer konular hakkında daha fazla bilgi edinin.
+                </p>
+                <a href="/Sarj/Ipuclari" class="btn btn-info mt-3">Şarj İpuçlarına Git</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container pb-5">
+    <div class="soft-card p-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
+                <img src="/img/soft_lastik.png" class="img-fluid rounded-4" alt="Optimize Edilmiş Lastikler">
+            </div>
+            <div class="col-lg-6 order-lg-1 pe-lg-5">
+                <h2 class="fw-bold mb-3 soft-section-title">Optimize edilmiş lastikler</h2>
+                <p>
+                    SOFT orijinal Lastikleri, özel olarak geliştirilmiş ve test edilmiştir.
+                </p>
+                <ul class="list-unstyled">
+                    <li>› Özel olarak geliştirilmiş ve test edilmiştir</li>
+                    <li>› Islak ve kuru yollarda kısa fren mesafesi</li>
+                    <li>› Daha düşük yakıt tüketimi için düşük yuvarlanma direnci</li>
+                    <li>› Daha fazla elektrik menzili için optimize edilmiş yüzey</li>
+                </ul>
+                <a href="#" class="btn btn-info mt-3">SOFT Shop'a git</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+body {
+    background: #18181f !important;
+    color: #e0f7f4;
+}
+.soft-gradient-text {
+    background: linear-gradient(90deg, #00e6d0 30%, #fff 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.soft-link-card {
+    background: #23232b;
+    border: 1px solid #00e6d0;
+    color: #e0f7f4;
+    min-width: 220px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px #00e6d033;
+}
+.soft-link-card:hover {
+    background: #00e6d0;
+    color: #18181f;
+    box-shadow: 0 8px 32px #00e6d077;
+}
+.soft-card {
+    background: #23232b;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px #00e6d055;
+    color: #e0f7f4;
+}
+.soft-section-title {
+    color: #00e6d0;
+    text-shadow: 0 1px 8px #00e6d077;
+}
+.btn-info {
+    background-color: #00e6d0;
+    border-color: #00e6d0;
+    color: #18181f;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.btn-info:hover {
+    background-color: #00c7b3;
+    border-color: #00c7b3;
+    color: #18181f;
+}
+</style> 

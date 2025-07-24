@@ -1,0 +1,918 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html,
+body {
+  height: 100%;
+  background: #101014;
+  color: #f3f3f3;
+}
+
+body {
+  margin-bottom: 60px;
+  font-family: "Audi Type", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.audi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2vw;
+  background: rgba(24, 24, 32, 0.92);
+  border-bottom: 1px solid #23232b;
+  height: 64px;
+  position: relative;
+  z-index: 1100;
+}
+
+.audi-logo img {
+  height: 125px;
+}
+
+.audi-main-nav ul {
+  display: flex;
+  gap: 2vw;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.audi-main-nav a {
+  text-decoration: none;
+  color: #f3f3f3;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.audi-main-nav a:hover {
+  background: #23232b;
+  color: #00e6d0;
+}
+
+.audi-hero {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: #000;
+}
+
+.audi-hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0.7;
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.audi-hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  max-width: 600px;
+  text-align: left;
+  margin-left: 5vw;
+}
+
+.audi-hero-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.audi-hero-content p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.audi-hero-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.audi-btn,
+.audi-btn-outline {
+  box-shadow: 0 2px 8px rgba(0, 230, 208, 0.1);
+  transition: background 0.2s, color 0.2s, box-shadow 0.3s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.audi-btn::after,
+.audi-btn-outline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 230, 208, 0.15);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: 0;
+}
+.audi-btn:hover,
+.audi-btn-outline:hover {
+  box-shadow: 0 6px 24px rgba(0, 230, 208, 0.18);
+  transform: translateY(-2px) scale(1.04);
+}
+.audi-btn:hover::after,
+.audi-btn-outline:hover::after {
+  width: 250%;
+  height: 250%;
+}
+
+.audi-btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: #00e6d0;
+  color: #101014;
+  border: none;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.audi-btn:hover {
+  background: #fff;
+  color: #101014;
+}
+
+.audi-btn-outline {
+  background: transparent;
+  color: #00e6d0;
+  border: 2px solid #00e6d0;
+}
+
+.audi-btn-outline:hover {
+  background: #00e6d0;
+  color: #101014;
+}
+
+.audi-main {
+  padding: 2rem 0;
+  background: rgba(24, 24, 32, 0.92);
+}
+
+.audi-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.audi-card {
+  background: rgba(24, 24, 32, 0.92);
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  width: 300px;
+  min-width: 250px;
+  max-width: 100%;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 260px;
+  transition: box-shadow 0.2s;
+}
+
+.audi-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.audi-card img,
+.vanta-img-wrapper img {
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
+  transition: transform 0.35s cubic-bezier(0.4, 2, 0.3, 1), box-shadow 0.25s;
+}
+.audi-card:hover img,
+.vanta-img-wrapper:hover img {
+  transform: scale(1.06) rotate(-1deg);
+  box-shadow: 0 8px 32px rgba(0, 230, 208, 0.18);
+  filter: none;
+}
+
+.audi-card-content {
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1 auto;
+  text-align: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.audi-card:hover .audi-card-content {
+  background: rgba(0, 230, 208, 0.04);
+  color: #00e6d0;
+  transform: none;
+}
+
+.audi-card-content h2 {
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem 0;
+  color: #fff;
+}
+
+.audi-card-content p {
+  font-size: 0.85rem;
+  color: #d0d0d0;
+  margin: 0 0 0.4rem 0;
+}
+
+.audi-card-content .audi-btn,
+.audi-card-content .audi-btn-outline {
+  margin-top: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  flex: 1;
+  text-align: center;
+  min-width: 0;
+}
+
+.audi-card-content .audi-card-btns {
+  margin-top: auto;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.audi-footer {
+  background: rgba(24, 24, 32, 0.92);
+  color: #f3f3f3;
+  text-align: center;
+  padding: 2rem 0 1rem 0;
+  margin-top: 2rem;
+}
+
+.audi-footer-links {
+  margin-bottom: 1rem;
+}
+
+.audi-footer-links a {
+  color: #f3f3f3;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.audi-footer-links a:hover {
+  color: #00e6d0;
+}
+
+.audi-footer-copy {
+  font-size: 0.95rem;
+  color: #bbb;
+}
+
+@media (max-width: 900px) {
+  .audi-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .audi-card {
+    width: 95vw;
+    min-width: unset;
+    margin-bottom: 1.5rem;
+  }
+  .audi-hero-content {
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .audi-header {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem 0.5rem;
+  }
+  .audi-main-nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .audi-hero {
+    height: 220px;
+  }
+  .audi-hero-content h1 {
+    font-size: 1.3rem;
+  }
+  .audi-hero-content p {
+    font-size: 1rem;
+  }
+  .audi-card img.vanta {
+    height: 160px;
+    object-fit: cover;
+  }
+  .audi-card img {
+    height: 160px;
+  }
+  .audi-card-content {
+    padding: 1rem;
+  }
+  .audi-card.vanta {
+    height: 220px;
+  }
+  .audi-card.vanta img.vanta {
+    height: 220px;
+  }
+}
+
+.audi-bg-wrapper {
+  /* Arka plan resmi eklemek için örnek kullanım:
+       background-image: url('/img/bg.jpg');
+    */
+  background-color: #101014;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100dvh;
+  width: 100%;
+  position: relative;
+}
+
+.audi-header,
+.audi-footer,
+.audi-main,
+.audi-card,
+.audi-hero {
+  background: rgba(24, 24, 32, 0.92);
+  color: #f3f3f3;
+  backdrop-filter: blur(2px);
+}
+
+.audi-card,
+.audi-cards,
+.audi-hero,
+.audi-bg-wrapper {
+  overflow: visible !important;
+}
+
+::-webkit-scrollbar {
+  background: #181820;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #23232b;
+  border-radius: 8px;
+}
+
+.audi-card.vanta {
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+.audi-card.vanta img.vanta {
+  height: 360px;
+  object-fit: cover;
+}
+
+.vanta-img-wrapper {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #181820;
+}
+.vanta-img-wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 600px) {
+  .vanta-img-wrapper {
+    aspect-ratio: 1/1;
+  }
+  .vanta-img-wrapper img {
+    height: 60%;
+    width: 60%;
+  }
+}
+
+.vanta-card {
+  min-height: 420px;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 600px) {
+  .vanta-card {
+    min-height: 180px;
+    padding: 1rem;
+  }
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdown-menu {
+  display: none !important;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: #23232b;
+  color: #fff;
+  min-width: 180px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 1200;
+  padding: 0.5rem 0;
+}
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.dropdown-menu li:hover {
+  background: #00e6d0;
+  color: #101014;
+}
+
+/* Modern mega menü */
+.mega-dropdown {
+  position: relative;
+}
+.mega-toggle {
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.mega-toggle:hover {
+  color: #00e6d0;
+}
+.mega-menu {
+  min-width: 420px;
+  background: rgba(24, 24, 32, 0.98);
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(0, 230, 208, 0.13),
+    0 1.5px 8px rgba(0, 0, 0, 0.12);
+  padding: 1.5rem 2rem 1.5rem 2rem;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.98);
+  transition: opacity 0.35s cubic-bezier(0.4, 2, 0.3, 1),
+    transform 0.35s cubic-bezier(0.4, 2, 0.3, 1);
+  z-index: 1200;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.mega-dropdown.open .mega-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+.mega-col h4 a {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 0.7rem;
+  padding: 0.4rem 0.8rem;
+  transition: background 0.2s, color 0.2s;
+  display: block;
+}
+.mega-col h4 a:hover {
+  background: #00e6d0;
+  color: #101014;
+}
+.mega-col h3 a {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 0.7rem;
+  padding: 0.4rem 0.8rem;
+  transition: background 0.2s, color 0.2s;
+  display: block;
+}
+.mega-col h3 a:hover {
+  background: #00e6d0;
+  color: #101014;
+}
+@media (max-width: 700px) {
+  .mega-menu {
+    min-width: 220px;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* Modern video kutusu */
+.modern-video-wrapper {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 230, 208, 0.13),
+    0 1.5px 8px rgba(0, 0, 0, 0.12);
+  position: relative;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.modern-video-wrapper:hover {
+  box-shadow: 0 8px 48px rgba(0, 230, 208, 0.22), 0 2px 16px rgba(0, 0, 0, 0.18);
+  transform: scale(1.015) translateY(-2px);
+}
+.modern-video {
+  border-radius: 1.5rem;
+  transition: filter 0.3s;
+  background: #101014;
+}
+.modern-video-wrapper:hover .modern-video {
+  filter: brightness(0.95) saturate(1.1);
+}
+.modern-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+  transition: background 0.3s;
+}
+.modern-video-wrapper:hover .modern-video-overlay {
+  background: rgba(0, 0, 0, 0.08);
+  pointer-events: auto;
+}
+.modern-play-btn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 230, 208, 0.18);
+  border-radius: 50%;
+  padding: 0;
+}
+.modern-play-btn:active {
+  transform: scale(0.95);
+}
+.modern-play-btn svg {
+  display: block;
+}
+
+/* Modern kart hover ve animasyonları - TÜM SAYFALAR İÇİN GENİŞLETİLDİ */
+.card,
+.audi-card,
+.vanta-card {
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.card:hover,
+.audi-card:hover,
+.vanta-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  transform: translateY(-6px) scale(1.03);
+}
+.card-img-top,
+.audi-card img,
+.vanta-img-wrapper img {
+  transition: transform 0.35s cubic-bezier(0.4, 2, 0.3, 1), box-shadow 0.25s;
+}
+.card:hover .card-img-top,
+.audi-card:hover img,
+.vanta-card:hover img,
+.vanta-img-wrapper:hover img {
+  transform: scale(1.07) rotate(-1deg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* Kart içindeki butonlar için hover efekti */
+.card .btn-outline-primary,
+.audi-card .btn-outline-primary {
+  border-radius: 2rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.card .btn-outline-primary:hover,
+.audi-card .btn-outline-primary:hover {
+  background: #00e6d0;
+  color: #101014;
+  border-color: #00e6d0;
+}
+
+/* Butonlara modern efektler - TÜM SAYFALAR İÇİN */
+.btn,
+.audi-btn,
+.audi-btn-outline {
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s, color 0.2s, box-shadow 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 230, 208, 0.1);
+}
+.btn::after,
+.audi-btn::after,
+.audi-btn-outline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 230, 208, 0.15);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: 0;
+}
+.btn:hover,
+.audi-btn:hover,
+.audi-btn-outline:hover {
+  box-shadow: 0 6px 24px rgba(0, 230, 208, 0.18);
+  transform: translateY(-2px) scale(1.04);
+}
+.btn:hover::after,
+.audi-btn:hover::after,
+.audi-btn-outline:hover::after {
+  width: 250%;
+  height: 250%;
+}
+
+/* Başlıklara fade-in animasyonu - TÜM SAYFALAR İÇİN */
+.audi-hero-content h1,
+.audi-main h2,
+.audi-card-content h2,
+.card-title,
+h1,
+h2,
+h3 {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 2.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) 0.2s forwards;
+}
+.audi-suv-hero p,
+.audi-hero-content p,
+.audi-hero p,
+.lead {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeInUp 1.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) 0.5s forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Kart içeriği hover'da arka plan geçişi - TÜM SAYFALAR İÇİN */
+.audi-card-content,
+.card-body {
+  transition: background 0.3s, color 0.3s;
+}
+.audi-card:hover .audi-card-content,
+.vanta-card:hover .audi-card-content,
+.card:hover .card-body {
+  background: rgba(0, 230, 208, 0.04);
+  color: #00e6d0;
+}
+
+/* Header butonları için özel stil */
+.audi-main-nav .audi-btn-outline {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: background 0.2s, color 0.2s, box-shadow 0.3s, transform 0.2s;
+}
+.audi-main-nav .audi-btn-outline::after {
+  display: none !important;
+}
+.audi-main-nav .audi-btn-outline:hover {
+  background: #00e6d0;
+  color: #101014;
+  box-shadow: 0 4px 18px 0 rgba(0, 230, 208, 0.25);
+  transform: translateY(-2px) scale(1.07);
+  border-color: #00e6d0;
+}
+
+/* --- MICRO-INTERACTIONS --- */
+
+/* 2. Menüde Aktif Link Altı Animasyonu */
+.audi-main-nav .nav-link {
+  position: relative;
+  transition: color 0.2s;
+}
+.audi-main-nav .nav-link.active::after,
+.audi-main-nav .nav-link.selected::after {
+  content: "";
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 0.2em;
+  height: 3px;
+  background: #00e6d0;
+  border-radius: 2px;
+  transition: left 0.3s, right 0.3s, width 0.3s;
+}
+.audi-main-nav .nav-link:not(.active):not(.selected)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: 0.2em;
+  height: 3px;
+  background: #00e6d0;
+  border-radius: 2px;
+  opacity: 0;
+  transition: left 0.3s, right 0.3s, width 0.3s, opacity 0.2s;
+}
+.audi-main-nav .nav-link.active::after,
+.audi-main-nav .nav-link.selected::after {
+  opacity: 1;
+}
+
+/* 3. Toast Fade Animasyonu */
+.toast {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.toast.showing,
+.toast.show {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+#main-content {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#main-content.fade-in {
+  opacity: 1;
+}
+#main-content.fade-out {
+  opacity: 0;
+}
+
+.footer-wave-anim .wave1 {
+  animation: waveMove1 7s linear infinite;
+}
+.footer-wave-anim .wave2 {
+  animation: waveMove2 11s linear infinite;
+}
+@keyframes waveMove1 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-120px);
+  }
+}
+@keyframes waveMove2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(120px);
+  }
+}
+
+#global-loader {
+  position: fixed;
+  z-index: 3000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(16, 16, 20, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s;
+  opacity: 1;
+  pointer-events: all;
+}
+#global-loader.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.loader-spinner {
+  width: 64px;
+  height: 64px;
+  border: 6px solid #00e6d0;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 4px 32px #00e6d033;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.tooltip {
+  z-index: 3000 !important;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Detay butonları için özel stiller */
+.detail-btn {
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border-width: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.detail-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-width: 2px;
+}
+
+/* Motorcycle butonu için özel stil */
+.btn-outline-primary.detail-btn {
+  color: #007bff;
+  border-color: #007bff;
+  background-color: transparent;
+}
+
+.btn-outline-primary.detail-btn:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Diğer butonlar için hover efektleri */
+.btn-outline-info.detail-btn:hover {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-outline-success.detail-btn:hover {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-outline-warning.detail-btn:hover {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.btn-outline-danger.detail-btn:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-outline-secondary.detail-btn:hover {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-outline-light.detail-btn:hover {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}

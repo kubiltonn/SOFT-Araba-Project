@@ -1,0 +1,815 @@
+@{
+    ViewData["Title"] = "SOFT Araç Konfigüratörü";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+.configurator-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.configurator-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%2300e6d0" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.configurator-grid {
+    display: grid;
+    grid-template-columns: 1fr 450px;
+    gap: 3rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.car-display-area {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 25px;
+    padding: 3rem;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 230, 208, 0.1);
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.car-display-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00e6d0, transparent);
+}
+
+.car-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+}
+
+.car-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    filter: drop-shadow(0 10px 20px rgba(0, 230, 208, 0.2));
+}
+
+.car-image:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0 15px 30px rgba(0, 230, 208, 0.3));
+}
+
+.car-info {
+    text-align: center;
+    color: #fff;
+    width: 100%;
+}
+
+.car-name {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #00e6d0, #00b3a0, #00e6d0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 230, 208, 0.3);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@@keyframes glow {
+    from { filter: drop-shadow(0 0 5px rgba(0, 230, 208, 0.3)); }
+    to { filter: drop-shadow(0 0 20px rgba(0, 230, 208, 0.6)); }
+}
+
+.car-model {
+    font-size: 1.4rem;
+    color: #b0e6e0;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.configuration-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 25px;
+    padding: 2.5rem;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 230, 208, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.configuration-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.configuration-panel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.configuration-panel::-webkit-scrollbar-thumb {
+    background: #00e6d0;
+    border-radius: 3px;
+}
+
+.config-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 230, 208, 0.1);
+    position: relative;
+}
+
+.config-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.config-section::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00e6d0, #00b3a0);
+    transition: width 0.3s ease;
+}
+
+.config-section:hover::after {
+    width: 100%;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #00e6d0;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-title i {
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.option-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.option-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 230, 208, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.option-item:hover::before {
+    left: 100%;
+}
+
+.option-item:hover {
+    border-color: #00e6d0;
+    background: rgba(0, 230, 208, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 230, 208, 0.2);
+}
+
+.option-item.selected {
+    border-color: #00e6d0;
+    background: rgba(0, 230, 208, 0.15);
+    box-shadow: 0 0 20px rgba(0, 230, 208, 0.3);
+    transform: translateY(-2px);
+}
+
+.option-item.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #00e6d0;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.option-name {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.option-price {
+    font-size: 0.95rem;
+    color: #b0e6e0;
+    font-weight: 500;
+}
+
+.price-summary {
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    border-radius: 20px;
+    padding: 2rem;
+    color: #fff;
+    margin-top: 2.5rem;
+    box-shadow: 0 15px 30px rgba(0, 230, 208, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.price-summary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    opacity: 0.3;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.price-total {
+    font-size: 1.8rem;
+    font-weight: 800;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.action-buttons {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.btn-config {
+    padding: 1.25rem 2.5rem;
+    border-radius: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-config::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-config:hover::before {
+    left: 100%;
+}
+
+.btn-primary-config {
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(0, 230, 208, 0.3);
+}
+
+.btn-primary-config:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 230, 208, 0.4);
+}
+
+.btn-outline-config {
+    background: transparent;
+    color: #00e6d0;
+    border: 2px solid #00e6d0;
+    box-shadow: 0 5px 15px rgba(0, 230, 208, 0.2);
+}
+
+.btn-outline-config:hover {
+    background: #00e6d0;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 230, 208, 0.4);
+}
+
+.loading-spinner {
+    display: none;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 230, 208, 0.3);
+    border-top: 4px solid #00e6d0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.configurator-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #fff;
+}
+
+.configurator-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00e6d0, #00b3a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(0, 230, 208, 0.3);
+}
+
+.configurator-subtitle {
+    font-size: 1.3rem;
+    color: #b0e6e0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+@@media (max-width: 1200px) {
+    .configurator-grid {
+        grid-template-columns: 1fr 400px;
+        gap: 2rem;
+    }
+}
+
+q@media (max-width: 992px) {
+    .configurator-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .configuration-panel {
+        position: static;
+        max-height: none;
+    }
+    
+    .car-name {
+        font-size: 2.5rem;
+    }
+    
+    .configurator-title {
+        font-size: 3rem;
+    }
+}
+
+@@media (max-width: 768px) {
+    .configurator-container {
+        padding: 1rem 0;
+    }
+    
+    .configurator-grid {
+        padding: 0 1rem;
+        gap: 1.5rem;
+    }
+    
+    .car-display-area {
+        padding: 2rem;
+        min-height: 500px;
+    }
+    
+    .configuration-panel {
+        padding: 2rem;
+    }
+    
+    .car-name {
+        font-size: 2rem;
+    }
+    
+    .configurator-title {
+        font-size: 2.5rem;
+    }
+    
+    .configurator-subtitle {
+        font-size: 1.1rem;
+    }
+}
+</style>
+
+<div class="configurator-container">
+    <!-- Header -->
+    <div class="configurator-header">
+        <h1 class="configurator-title">SOFT Araç Konfigüratörü</h1>
+        <p class="configurator-subtitle">Hayalinizdeki aracı tasarlayın ve gerçek zamanlı fiyatlandırma görün</p>
+    </div>
+
+    <div class="configurator-grid">
+        <!-- Araç Görüntüleme Alanı -->
+        <div class="car-display-area">
+            <div class="car-image-container">
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                <img id="carImage" class="car-image" src="/img/softSUV.jpeg" alt="SOFT Araç" />
+            </div>
+            <div class="car-info">
+                <h1 id="carName" class="car-name">SOFT AERIS</h1>
+                <p id="carModel" class="car-model">SUV Modeli</p>
+            </div>
+        </div>
+
+        <!-- Konfigürasyon Paneli -->
+        <div class="configuration-panel">
+            <!-- Kategori Seçimi -->
+            <div class="config-section">
+                <h3 class="section-title">
+                    <i class="fas fa-layer-group"></i>
+                    Kategori
+                </h3>
+                <div class="option-grid" id="categoryOptions">
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <div class="option-item" data-category-id="@category.CategoryId" onclick="selectCategory(@category.CategoryId)">
+                            <div class="option-name">@category.CategoryName</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Model Seçimi -->
+            <div class="config-section">
+                <h3 class="section-title">
+                    <i class="fas fa-car"></i>
+                    Model
+                </h3>
+                <div class="option-grid" id="modelOptions">
+                    <div class="option-item selected" data-model-id="1" onclick="selectModel(1)">
+                        <div class="option-name">SOFT AERIS</div>
+                        <div class="option-price">₺1,250,000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Renk Seçimi -->
+            <div class="config-section">
+                <h3 class="section-title">
+                    <i class="fas fa-palette"></i>
+                    Renk
+                </h3>
+                <div class="option-grid" id="colorOptions">
+                    @foreach (var color in ViewBag.Colors)
+                    {
+                        <div class="option-item" data-color-id="@color.ColorId" onclick="selectColor(@color.ColorId)">
+                            <div class="option-name">@color.ColorName</div>
+                            <div class="option-price">+₺@(color.ColorPrice?.ToString("N0") ?? "0")</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Paket Seçimi -->
+            <div class="config-section">
+                <h3 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    Donanım Paketi
+                </h3>
+                <div class="option-grid" id="packageOptions">
+                    @foreach (var package in ViewBag.Packages)
+                    {
+                        <div class="option-item" data-package-id="@package.PackageId" onclick="selectPackage(@package.PackageId)">
+                            <div class="option-name">@package.PackageName</div>
+                            <div class="option-price">+₺@(package.PackagePrice?.ToString("N0") ?? "0")</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Fiyat Özeti -->
+            <div class="price-summary">
+                <div class="price-row">
+                    <span>Temel Fiyat:</span>
+                    <span id="basePrice">₺1,250,000</span>
+                </div>
+                <div class="price-row">
+                    <span>Renk:</span>
+                    <span id="colorPrice">₺0</span>
+                </div>
+                <div class="price-row">
+                    <span>Paket:</span>
+                    <span id="packagePrice">₺0</span>
+                </div>
+                <div class="price-row price-total">
+                    <span>Toplam:</span>
+                    <span id="totalPrice">₺1,250,000</span>
+                </div>
+            </div>
+
+            <!-- Aksiyon Butonları -->
+            <div class="action-buttons">
+                <button class="btn-config btn-primary-config" onclick="saveConfiguration()">
+                    <i class="fas fa-save me-2"></i>Konfigürasyonu Kaydet
+                </button>
+                <button class="btn-config btn-outline-config" onclick="requestQuote()">
+                    <i class="fas fa-envelope me-2"></i>Teklif İste
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentConfig = {
+    categoryId: null,
+    modelId: 1,
+    colorId: null,
+    packageId: null
+};
+
+// Kategori seçimi
+function selectCategory(categoryId) {
+    currentConfig.categoryId = categoryId;
+    
+    // Seçili kategoriyi işaretle
+    document.querySelectorAll('[data-category-id]').forEach(item => {
+        item.classList.remove('selected');
+    });
+    document.querySelector(`[data-category-id="${categoryId}"]`).classList.add('selected');
+    
+    // Modelleri yükle
+    loadModelsByCategory(categoryId);
+}
+
+// Kategoriye göre modelleri yükle
+function loadModelsByCategory(categoryId) {
+    console.log('Loading models for category:', categoryId);
+    showLoading();
+    
+    const formData = new FormData();
+    formData.append('categoryId', categoryId);
+    
+    fetch('/Configurator/GetModelsByCategory', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+    })
+    .then(models => {
+        console.log('Models received:', models);
+        updateModelOptions(models);
+        hideLoading();
+    })
+    .catch(error => {
+        console.error('Error loading models:', error);
+        hideLoading();
+    });
+}
+
+// Model seçeneklerini güncelle
+function updateModelOptions(models) {
+    const modelOptions = document.getElementById('modelOptions');
+    modelOptions.innerHTML = '';
+    
+    models.forEach(model => {
+        const option = document.createElement('div');
+        option.className = 'option-item';
+        option.setAttribute('data-model-id', model.id);
+        option.onclick = () => selectModel(model.id);
+        option.innerHTML = `
+            <div class="option-name">${model.carAdi}</div>
+            <div class="option-price">₺${model.carFiyat.toLocaleString()}</div>
+        `;
+        modelOptions.appendChild(option);
+    });
+    
+    // İlk modeli seç
+    if (models.length > 0) {
+        selectModel(models[0].id);
+    }
+}
+
+// Model seçimi
+function selectModel(modelId) {
+    currentConfig.modelId = modelId;
+    
+    // Seçili modeli işaretle
+    document.querySelectorAll('[data-model-id]').forEach(item => {
+        item.classList.remove('selected');
+    });
+    document.querySelector(`[data-model-id="${modelId}"]`).classList.add('selected');
+    
+    // Model detaylarını yükle
+    loadModelDetails(modelId);
+}
+
+// Model detaylarını yükle
+function loadModelDetails(modelId) {
+    console.log('Loading model details for ID:', modelId);
+    showLoading();
+    
+    const formData = new FormData();
+    formData.append('modelId', modelId);
+    
+    fetch('/Configurator/GetModelDetails', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('Model details response status:', response.status);
+        return response.json();
+    })
+    .then(model => {
+        console.log('Model details received:', model);
+        updateCarDisplay(model);
+        calculatePrice();
+        hideLoading();
+    })
+    .catch(error => {
+        console.error('Error loading model details:', error);
+        hideLoading();
+    });
+}
+
+// Araç görüntüsünü güncelle
+function updateCarDisplay(model) {
+    document.getElementById('carImage').src = model.carImage || '/img/softSUV.jpeg';
+    document.getElementById('carName').textContent = model.carAdi;
+    document.getElementById('carModel').textContent = model.carModel;
+}
+
+// Renk seçimi
+function selectColor(colorId) {
+    currentConfig.colorId = colorId;
+    
+    // Seçili rengi işaretle
+    document.querySelectorAll('[data-color-id]').forEach(item => {
+        item.classList.remove('selected');
+    });
+    document.querySelector(`[data-color-id="${colorId}"]`).classList.add('selected');
+    
+    calculatePrice();
+}
+
+// Paket seçimi
+function selectPackage(packageId) {
+    currentConfig.packageId = packageId;
+    
+    // Seçili paketi işaretle
+    document.querySelectorAll('[data-package-id]').forEach(item => {
+        item.classList.remove('selected');
+    });
+    document.querySelector(`[data-package-id="${packageId}"]`).classList.add('selected');
+    
+    calculatePrice();
+}
+
+// Fiyat hesapla
+function calculatePrice() {
+    if (!currentConfig.modelId) return;
+    
+    const formData = new FormData();
+    formData.append('modelId', currentConfig.modelId);
+    if (currentConfig.colorId) formData.append('colorId', currentConfig.colorId);
+    if (currentConfig.packageId) formData.append('packageId', currentConfig.packageId);
+    
+    fetch('/Configurator/CalculatePrice', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(price => {
+        document.getElementById('basePrice').textContent = `₺${price.basePrice.toLocaleString()}`;
+        document.getElementById('colorPrice').textContent = `₺${price.colorPrice.toLocaleString()}`;
+        document.getElementById('packagePrice').textContent = `₺${price.packagePrice.toLocaleString()}`;
+        document.getElementById('totalPrice').textContent = `₺${price.totalPrice.toLocaleString()}`;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Konfigürasyonu kaydet
+function saveConfiguration() {
+    const config = {
+        modelId: currentConfig.modelId,
+        colorId: currentConfig.colorId,
+        packageId: currentConfig.packageId,
+        customerName: '',
+        customerEmail: '',
+        customerPhone: '',
+        notes: ''
+    };
+    
+    fetch('/Configurator/SaveConfiguration', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(config)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            alert('Konfigürasyon başarıyla kaydedildi!');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    });
+}
+
+// Teklif iste
+function requestQuote() {
+    alert('Teklif isteme özelliği yakında eklenecek!');
+}
+
+// Loading göstergeleri
+function showLoading() {
+    document.getElementById('loadingSpinner').style.display = 'block';
+}
+
+function hideLoading() {
+    document.getElementById('loadingSpinner').style.display = 'none';
+}
+
+// Sayfa yüklendiğinde ilk kategoriyi seç
+document.addEventListener('DOMContentLoaded', function() {
+    const firstCategory = document.querySelector('[data-category-id]');
+    if (firstCategory) {
+        selectCategory(parseInt(firstCategory.getAttribute('data-category-id')));
+    }
+});
+</script> 
